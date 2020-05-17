@@ -1,8 +1,9 @@
-package org.tylery.c196;
+package org.tylery.c196.viewmodel;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import org.tylery.c196.R;
 
 public class MainActivity extends AppCompatActivity {
 

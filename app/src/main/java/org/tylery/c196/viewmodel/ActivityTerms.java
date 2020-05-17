@@ -1,9 +1,11 @@
-package org.tylery.c196;
+package org.tylery.c196.viewmodel;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
+
+import org.tylery.c196.R;
 
 public class ActivityTerms extends AppCompatActivity {
     private ListView listTerms;
