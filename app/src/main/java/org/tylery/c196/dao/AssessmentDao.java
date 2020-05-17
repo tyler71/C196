@@ -1,12 +1,16 @@
 package org.tylery.c196.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import org.tylery.c196.entities.AssessmentEntity;
+
+import java.util.List;
 
 @Dao
 public interface AssessmentDao {
@@ -19,4 +23,7 @@ public interface AssessmentDao {
 
     @Delete
     void delete(AssessmentEntity assessmentEntity);
+
+    @Query("SELECT * FROM assessments WHERE courseID= :courseID ORDER BY id ASC")
+    LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID);
 }
