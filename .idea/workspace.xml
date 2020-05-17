@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c8b3f55-12ae-420f-aa78-95f648d12838" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/database/C196Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/AssessmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/AssessmentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/CourseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/CourseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/TermDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/dao/TermDao.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
