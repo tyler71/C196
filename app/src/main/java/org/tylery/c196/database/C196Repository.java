@@ -13,6 +13,8 @@ import org.tylery.c196.entities.AssessmentEntity;
 import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.entities.NoteEntity;
 import org.tylery.c196.entities.TermEntity;
+import org.tylery.c196.generics.GenericDao;
+import org.tylery.c196.generics.GenericEntity;
 
 import java.util.List;
 
@@ -34,82 +36,68 @@ public class C196Repository {
         noteDao = database.noteDao();
     }
 
-    public void insert(TermEntity term) {
-
+    public void insert(GenericDao dao, GenericEntity entity) {
+        new InsertAsyncTask(dao).execute(entity);
     }
 
-    public void update(TermEntity term) {
-
+    public void update(GenericDao dao, GenericEntity entity) {
+        new UpdateAsyncTask(dao).execute(entity);
     }
 
-    public void delete(TermEntity term) {
-
+    public void delete(GenericDao dao, GenericEntity entity) {
+        new DeleteAsyncTask(dao).execute(entity);
     }
 
     public LiveData<List<TermEntity>> getAllTerms() {
         return allTerms;
     }
 
-
-    public void insert(CourseEntity course) {
-
-    }
-
-    public void update(CourseEntity course) {
-
-    }
-
-    public void delete(CourseEntity course) {
-
-    }
-
     public LiveData<List<CourseEntity>> getTermCourses(int termID) {
 
     }
-
-
-    public void insert(NoteEntity note) {
-
-    }
-
-    public void update(NoteEntity note) {
-
-    }
-
-    public void delete(NoteEntity note) {
-
-    }
-
     public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
 
     }
-
-    public void insert(AssessmentEntity assessment) {
-
-    }
-
-    public void update(AssessmentEntity assessment) {
-
-    }
-
-    public void delete(AssessmentEntity assessment) {
-
-    }
-
     public LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID) {
 
     }
 
-    private static class InsertAsyncTask extends AsyncTask<TermEntity, Void, Void> {
-        private TermDao termDao;
+    private static class InsertAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
+        private GenericDao dao;
 
-        public InsertAsyncTask(TermDao termDao) {
-            this.termDao = termDao;
+        public InsertAsyncTask(GenericDao dao) {
+            this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(TermEntity... termEntities) {
-            termDao.insert(termEntities[0]);
+        protected Void doInBackground(GenericEntity... genericEntities) {
+            dao.insert(genericEntities[0]);
+            return null;
+        }
+    }
+    private static class UpdateAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
+        private GenericDao dao;
+
+        public UpdateAsyncTask(GenericDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(GenericEntity... genericEntities) {
+            dao.update(genericEntities[0]);
+            return null;
+        }
+    }
+    private static class DeleteAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
+        private GenericDao dao;
+
+        public DeleteAsyncTask(GenericDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(GenericEntity... genericEntities) {
+            dao.delete(genericEntities[0]);
             return null;
         }
     }
