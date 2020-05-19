@@ -3,8 +3,10 @@ package org.tylery.c196.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.tylery.c196.generics.GenericEntity;
+
 @Entity(tableName = "terms")
-public class TermEntity {
+public class TermEntity extends GenericEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 

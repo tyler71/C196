@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import org.tylery.c196.generics.GenericEntity;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "notes",
@@ -11,7 +13,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 parentColumns = "id",
                 childColumns = "courseID",
                 onDelete = CASCADE))
-public class NoteEntity {
+public class NoteEntity extends GenericEntity {
     @PrimaryKey
     private int id;
 

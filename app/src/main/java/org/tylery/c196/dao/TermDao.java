@@ -9,11 +9,12 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import org.tylery.c196.entities.TermEntity;
+import org.tylery.c196.generics.GenericDao;
 
 import java.util.List;
 
 @Dao
-public interface TermDao extends Entity {
+public interface TermDao extends GenericDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TermEntity termEntity);

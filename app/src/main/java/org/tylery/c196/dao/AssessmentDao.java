@@ -9,11 +9,12 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import org.tylery.c196.entities.AssessmentEntity;
+import org.tylery.c196.generics.GenericDao;
 
 import java.util.List;
 
 @Dao
-public interface AssessmentDao extends Entity {
+public interface AssessmentDao extends GenericDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AssessmentEntity assessmentEntity);
