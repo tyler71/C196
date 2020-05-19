@@ -8,11 +8,11 @@ import androidx.room.Update;
 
 public interface GenericDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert( courseEntity);
+    void insert(GenericEntity entity);
 
     @Update
-    void update(CourseEntity courseEntity);
+    void update(GenericEntity entity);
 
     @Delete
-    void delete(CourseEntity courseEntity);
+    void delete(GenericEntity entity);
 }
