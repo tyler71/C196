@@ -13,7 +13,7 @@ import org.tylery.c196.entities.CourseEntity;
 import java.util.List;
 
 @Dao
-public interface CourseDao {
+public interface CourseDao extends Entity {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(CourseEntity courseEntity);

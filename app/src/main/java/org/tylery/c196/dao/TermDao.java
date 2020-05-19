@@ -13,7 +13,7 @@ import org.tylery.c196.entities.TermEntity;
 import java.util.List;
 
 @Dao
-public interface TermDao {
+public interface TermDao extends Entity {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TermEntity termEntity);

@@ -13,7 +13,7 @@ import org.tylery.c196.entities.NoteEntity;
 import java.util.List;
 
 @Dao
-public interface NoteDao {
+public interface NoteDao extends Entity {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(NoteEntity noteEntity);

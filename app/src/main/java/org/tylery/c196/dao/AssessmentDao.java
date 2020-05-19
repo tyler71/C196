@@ -13,7 +13,7 @@ import org.tylery.c196.entities.AssessmentEntity;
 import java.util.List;
 
 @Dao
-public interface AssessmentDao {
+public interface AssessmentDao extends Entity {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AssessmentEntity assessmentEntity);
