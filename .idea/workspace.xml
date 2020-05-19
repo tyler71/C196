@@ -7,8 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c8b3f55-12ae-420f-aa78-95f648d12838" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/database/C196Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/entities/CourseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tylery/c196/entities/CourseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extras/C196.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/extras/C196.drawio" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

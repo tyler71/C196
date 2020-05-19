@@ -20,16 +20,18 @@ public class CourseEntity {
     private String title;
     private String startDate;
     private String endDate;
+    private boolean alert;
     private String status;
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
 
-    public CourseEntity(int termID, String title, String startDate, String endDate, String status, String mentorName, String mentorPhone, String mentorEmail) {
+    public CourseEntity(int termID, String title, String startDate, String endDate, boolean alert, String status, String mentorName, String mentorPhone, String mentorEmail) {
         this.termID = termID;
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.alert = alert;
         this.status = status;
         this.mentorName = mentorName;
         this.mentorPhone = mentorPhone;
@@ -74,6 +76,14 @@ public class CourseEntity {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean isAlert() {
+        return alert;
+    }
+
+    public void setAlert(boolean alert) {
+        this.alert = alert;
     }
 
     public String getStatus() {
