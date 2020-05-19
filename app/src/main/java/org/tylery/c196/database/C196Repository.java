@@ -36,16 +36,43 @@ public class C196Repository {
         noteDao = database.noteDao();
     }
 
-    public void insert(GenericDao dao, GenericEntity entity) {
-        new InsertAsyncTask(dao).execute(entity);
+    public void insert(TermEntity termEntity) {
+        new InsertAsyncTask(termDao).execute(termEntity);
+    }
+    public void insert(CourseEntity courseEntity) {
+        new InsertAsyncTask(courseDao).execute(courseEntity);
+    }
+    public void insert(NoteEntity noteEntity) {
+        new InsertAsyncTask(noteDao).execute(noteEntity);
+    }
+    public void insert(AssessmentEntity assessmentEntity) {
+        new InsertAsyncTask(assessmentDao).execute(assessmentEntity);
     }
 
-    public void update(GenericDao dao, GenericEntity entity) {
-        new UpdateAsyncTask(dao).execute(entity);
+    public void update(TermEntity termEntity) {
+        new UpdateAsyncTask(termDao).execute(termEntity);
+    }
+    public void update(CourseEntity courseEntity) {
+        new UpdateAsyncTask(courseDao).execute(courseEntity);
+    }
+    public void update(NoteEntity noteEntity) {
+        new UpdateAsyncTask(noteDao).execute(noteEntity);
+    }
+    public void update(AssessmentEntity assessmentEntity) {
+        new UpdateAsyncTask(assessmentDao).execute(assessmentEntity);
     }
 
-    public void delete(GenericDao dao, GenericEntity entity) {
-        new DeleteAsyncTask(dao).execute(entity);
+    public void delete(TermEntity termEntity) {
+        new DeleteAsyncTask(termDao).execute(termEntity);
+    }
+    public void delete(CourseEntity courseEntity) {
+        new DeleteAsyncTask(courseDao).execute(courseEntity);
+    }
+    public void delete(NoteEntity noteEntity) {
+        new DeleteAsyncTask(noteDao).execute(noteEntity);
+    }
+    public void delete(AssessmentEntity assessmentEntity) {
+        new DeleteAsyncTask(assessmentDao).execute(assessmentEntity);
     }
 
     public LiveData<List<TermEntity>> getAllTerms() {
@@ -65,7 +92,7 @@ public class C196Repository {
     private static class InsertAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
         private GenericDao dao;
 
-        public InsertAsyncTask(GenericDao dao) {
+        private InsertAsyncTask(GenericDao dao) {
             this.dao = dao;
         }
 
@@ -78,7 +105,7 @@ public class C196Repository {
     private static class UpdateAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
         private GenericDao dao;
 
-        public UpdateAsyncTask(GenericDao dao) {
+        private UpdateAsyncTask(GenericDao dao) {
             this.dao = dao;
         }
 
@@ -91,7 +118,7 @@ public class C196Repository {
     private static class DeleteAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
         private GenericDao dao;
 
-        public DeleteAsyncTask(GenericDao dao) {
+        private DeleteAsyncTask(GenericDao dao) {
             this.dao = dao;
         }
 
@@ -101,5 +128,6 @@ public class C196Repository {
             return null;
         }
     }
+
 
 }
