@@ -20,20 +20,33 @@ import java.util.List;
 
 public class C196Repository {
     private TermDao termDao;
-    private LiveData<List<TermEntity>> allTerms;
+    private LiveData<List<TermEntity>> mAllTerms;
 
     private CourseDao courseDao;
+    private LiveData<List<CourseEntity>> mTermCourses;
+
     private NoteDao noteDao;
+    private LiveData<List<NoteEntity>> mCourseNotes;
+
     private AssessmentDao assessmentDao;
+    private LiveData<List<AssessmentEntity>> mCourseAssessments;
+
+    private int termID;
+    private int courseID;
 
     public C196Repository(Application application) {
         C196Database database = C196Database.getInstance(application);
         termDao = database.termDao();
-        allTerms = termDao.getAllTerms();
+        mAllTerms = termDao.getAllTerms();
 
         courseDao = database.courseDao();
+        mTermCourses = courseDao.getTermCourses(termID);
+
         assessmentDao = database.assessmentDao();
+        mCourseAssessments = assessmentDao.getCourseAssessments(courseID);
+
         noteDao = database.noteDao();
+        mCourseNotes = noteDao.getCourseNotes(courseID);
     }
 
     public void insert(TermEntity termEntity) {
@@ -75,18 +88,19 @@ public class C196Repository {
         new DeleteAsyncTask(assessmentDao).execute(assessmentEntity);
     }
 
+
     public LiveData<List<TermEntity>> getAllTerms() {
-        return allTerms;
+        return mAllTerms;
     }
 
     public LiveData<List<CourseEntity>> getTermCourses(int termID) {
-
+        return mTermCourses;
     }
     public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
-
+        return mCourseNotes;
     }
     public LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID) {
-
+        return mCourseAssessments;
     }
 
     private static class InsertAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
