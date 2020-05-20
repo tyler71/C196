@@ -112,7 +112,8 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(GenericEntity... genericEntities) {
-            dao.insert(genericEntities[0]);
+            GenericEntity entity = genericEntities[0];
+            dao.insert(entity);
             return null;
         }
     }
@@ -125,7 +126,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(GenericEntity... genericEntities) {
-            dao.update(genericEntities[0]);
+            dao.update((AssessmentEntity) genericEntities[0]);
             return null;
         }
     }
@@ -138,7 +139,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(GenericEntity... genericEntities) {
-            dao.delete(genericEntities[0]);
+            dao.delete((AssessmentEntity) genericEntities[0]);
             return null;
         }
     }

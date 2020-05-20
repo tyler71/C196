@@ -16,14 +16,14 @@ import java.util.List;
 @Dao
 public interface TermDao extends GenericDao {
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    void insert(TermEntity termEntity);
-//
-//    @Update
-//    void update(TermEntity termEntity);
-//
-//    @Delete
-//    void delete(TermEntity termEntity);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(TermEntity termEntity);
+
+    @Update
+    void update(TermEntity termEntity);
+
+    @Delete
+    void delete(TermEntity termEntity);
 
     @Query("SELECT * FROM terms ORDER BY id ASC")
     LiveData<List<TermEntity>> getAllTerms();
