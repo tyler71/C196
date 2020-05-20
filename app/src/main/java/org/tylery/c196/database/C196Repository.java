@@ -103,20 +103,60 @@ public class C196Repository {
         return mCourseAssessments;
     }
 
-    private static class InsertAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
-        private GenericDao dao;
+    private static class InsertAsyncTerm extends AsyncTask<TermEntity, Void, Void> {
+        private TermDao dao;
 
-        private InsertAsyncTask(GenericDao dao) {
+        private InsertAsyncTerm(TermDao dao) {
             this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(GenericEntity... genericEntities) {
-            GenericEntity entity = genericEntities[0];
-            dao.insert(entity);
+        protected Void doInBackground(TermEntity... termEntities) {
+            dao.insert(termEntities[0]);
             return null;
         }
     }
+    private static class InsertAsyncCourse extends AsyncTask<CourseEntity, Void, Void> {
+        private CourseDao dao;
+
+        private InsertAsyncCourse(CourseDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(CourseEntity... courseEntities) {
+            dao.insert(courseEntities[0]);
+            return null;
+        }
+    }
+    private static class InsertAsyncAssessment extends AsyncTask<AssessmentEntity, Void, Void> {
+        private AssessmentDao dao;
+
+        private InsertAsyncAssessment(AssessmentDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(AssessmentEntity... assessmentEntities) {
+            dao.insert(assessmentEntities[0]);
+            return null;
+        }
+    }
+    private static class InsertAsyncNote extends AsyncTask<NoteEntity, Void, Void> {
+        private NoteDao dao;
+
+        private InsertAsyncNote(NoteDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(NoteEntity... noteEntities) {
+            dao.insert(noteEntities[0]);
+            return null;
+        }
+    }
+
+
     private static class UpdateAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
         private GenericDao dao;
 
