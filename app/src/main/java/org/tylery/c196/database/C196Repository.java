@@ -50,42 +50,42 @@ public class C196Repository {
     }
 
     public void insert(TermEntity termEntity) {
-        new InsertAsyncTask(termDao).execute(termEntity);
+        new InsertAsyncTerm(termDao).execute(termEntity);
     }
     public void insert(CourseEntity courseEntity) {
-        new InsertAsyncTask(courseDao).execute(courseEntity);
+        new InsertAsyncCourse(courseDao).execute(courseEntity);
     }
     public void insert(NoteEntity noteEntity) {
-        new InsertAsyncTask(noteDao).execute(noteEntity);
+        new InsertAsyncNote(noteDao).execute(noteEntity);
     }
     public void insert(AssessmentEntity assessmentEntity) {
-        new InsertAsyncTask(assessmentDao).execute(assessmentEntity);
+        new InsertAsyncAssessment(assessmentDao).execute(assessmentEntity);
     }
 
     public void update(TermEntity termEntity) {
-        new UpdateAsyncTask(termDao).execute(termEntity);
+        new UpdateAsyncTerm(termDao).execute(termEntity);
     }
     public void update(CourseEntity courseEntity) {
-        new UpdateAsyncTask(courseDao).execute(courseEntity);
+        new UpdateAsyncCourse(courseDao).execute(courseEntity);
     }
     public void update(NoteEntity noteEntity) {
-        new UpdateAsyncTask(noteDao).execute(noteEntity);
+        new UpdateAsyncNote(noteDao).execute(noteEntity);
     }
     public void update(AssessmentEntity assessmentEntity) {
-        new UpdateAsyncTask(assessmentDao).execute(assessmentEntity);
+        new UpdateAsyncAssessment(assessmentDao).execute(assessmentEntity);
     }
 
     public void delete(TermEntity termEntity) {
-        new DeleteAsyncTask(termDao).execute(termEntity);
+        new DeleteAsyncTerm(termDao).execute(termEntity);
     }
     public void delete(CourseEntity courseEntity) {
-        new DeleteAsyncTask(courseDao).execute(courseEntity);
+        new DeleteAsyncCourse(courseDao).execute(courseEntity);
     }
     public void delete(NoteEntity noteEntity) {
-        new DeleteAsyncTask(noteDao).execute(noteEntity);
+        new DeleteAsyncNote(noteDao).execute(noteEntity);
     }
     public void delete(AssessmentEntity assessmentEntity) {
-        new DeleteAsyncTask(assessmentDao).execute(assessmentEntity);
+        new DeleteAsyncAssessment(assessmentDao).execute(assessmentEntity);
     }
 
 
@@ -156,33 +156,109 @@ public class C196Repository {
         }
     }
 
+    private static class UpdateAsyncTerm extends AsyncTask<TermEntity, Void, Void> {
+        private TermDao dao;
 
-    private static class UpdateAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
-        private GenericDao dao;
-
-        private UpdateAsyncTask(GenericDao dao) {
+        private UpdateAsyncTerm(TermDao dao) {
             this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(GenericEntity... genericEntities) {
-            dao.update((AssessmentEntity) genericEntities[0]);
+        protected Void doInBackground(TermEntity... termEntities) {
+            dao.insert(termEntities[0]);
             return null;
         }
     }
-    private static class DeleteAsyncTask extends AsyncTask<GenericEntity, Void, Void> {
-        private GenericDao dao;
+    private static class UpdateAsyncCourse extends AsyncTask<CourseEntity, Void, Void> {
+        private CourseDao dao;
 
-        private DeleteAsyncTask(GenericDao dao) {
+        private UpdateAsyncCourse(CourseDao dao) {
             this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(GenericEntity... genericEntities) {
-            dao.delete((AssessmentEntity) genericEntities[0]);
+        protected Void doInBackground(CourseEntity... courseEntities) {
+            dao.insert(courseEntities[0]);
+            return null;
+        }
+    }
+    private static class UpdateAsyncAssessment extends AsyncTask<AssessmentEntity, Void, Void> {
+        private AssessmentDao dao;
+
+        private UpdateAsyncAssessment(AssessmentDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(AssessmentEntity... assessmentEntities) {
+            dao.insert(assessmentEntities[0]);
+            return null;
+        }
+    }
+    private static class UpdateAsyncNote extends AsyncTask<NoteEntity, Void, Void> {
+        private NoteDao dao;
+
+        private UpdateAsyncNote(NoteDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(NoteEntity... noteEntities) {
+            dao.insert(noteEntities[0]);
             return null;
         }
     }
 
+    private static class DeleteAsyncTerm extends AsyncTask<TermEntity, Void, Void> {
+        private TermDao dao;
 
+        private DeleteAsyncTerm(TermDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TermEntity... termEntities) {
+            dao.insert(termEntities[0]);
+            return null;
+        }
+    }
+    private static class DeleteAsyncCourse extends AsyncTask<CourseEntity, Void, Void> {
+        private CourseDao dao;
+
+        private DeleteAsyncCourse(CourseDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(CourseEntity... courseEntities) {
+            dao.insert(courseEntities[0]);
+            return null;
+        }
+    }
+    private static class DeleteAsyncAssessment extends AsyncTask<AssessmentEntity, Void, Void> {
+        private AssessmentDao dao;
+
+        private DeleteAsyncAssessment(AssessmentDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(AssessmentEntity... assessmentEntities) {
+            dao.insert(assessmentEntities[0]);
+            return null;
+        }
+    }
+    private static class DeleteAsyncNote extends AsyncTask<NoteEntity, Void, Void> {
+        private NoteDao dao;
+
+        private DeleteAsyncNote(NoteDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(NoteEntity... noteEntities) {
+            dao.insert(noteEntities[0]);
+            return null;
+        }
+    }
 }
