@@ -77,8 +77,14 @@ public abstract class C196Database extends RoomDatabase {
 
             courseDao.insert(new CourseEntity(1, "Course 1", "01-01-2020", "06-05-2020",
                     true, "In Progress", "Bob", "5555555555", "bob@null.com"));
+            courseDao.insert(new CourseEntity(1, "Course 2", "01-01-2020", "06-05-2020",
+                    true, "In Progress", "Bob", "5555555555", "bob@null.com"));
+            courseDao.insert(new CourseEntity(2, "Course 3", "01-01-2020", "06-05-2020",
+                    true, "In Progress", "Bob", "5555555555", "bob@null.com"));
 
             assessmentDao.insert(new AssessmentEntity(1, "test1", "performance assessment", "03-03-2020", true));
+            assessmentDao.insert(new AssessmentEntity(2, "test1", "performance assessment", "03-03-2020", true));
+            assessmentDao.insert(new AssessmentEntity(3, "test1", "performance assessment", "03-03-2020", true));
 
             noteDao.insert(new NoteEntity(1, "My note", "Content of my note"));
             return null;

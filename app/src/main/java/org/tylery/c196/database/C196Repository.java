@@ -13,8 +13,6 @@ import org.tylery.c196.entities.AssessmentEntity;
 import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.entities.NoteEntity;
 import org.tylery.c196.entities.TermEntity;
-import org.tylery.c196.generics.GenericDao;
-import org.tylery.c196.generics.GenericEntity;
 
 import java.util.List;
 
@@ -96,11 +94,11 @@ public class C196Repository {
     public LiveData<List<CourseEntity>> getTermCourses(int termID) {
         return mTermCourses;
     }
-    public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
-        return mCourseNotes;
-    }
     public LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID) {
         return mCourseAssessments;
+    }
+    public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
+        return mCourseNotes;
     }
 
     private static class InsertAsyncTerm extends AsyncTask<TermEntity, Void, Void> {

@@ -1,4 +1,4 @@
-package org.tylery.c196.viewmodel;
+package org.tylery.c196.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
