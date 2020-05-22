@@ -13,7 +13,7 @@ public class ActivityTerms extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_terms);
+        setContentView(R.layout.activity_terms_list);
         listTerms = (ListView) findViewById(R.id.termListView);
     }
 }
