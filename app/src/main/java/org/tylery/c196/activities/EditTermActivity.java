@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,11 +42,11 @@ public class EditTermActivity extends AppCompatActivity {
     private void saveTerm() {
         String termTitle = editTextTitle.getText().toString();
         String startDate = editTextStartDate.getText().toString();
-        String endDate   = editTextEndDate.getText().toString();
+        String endDate = editTextEndDate.getText().toString();
 
-        if(termTitle.trim().isEmpty()
-            || startDate.trim().isEmpty()
-            || endDate.trim().isEmpty()) {
+        if (termTitle.trim().isEmpty()
+                || startDate.trim().isEmpty()
+                || endDate.trim().isEmpty()) {
             Toast.makeText(this, "Empty fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -70,7 +71,7 @@ public class EditTermActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.edit_term_save_button:
+            case R.id.menu_save_term:
                 saveTerm();
                 return true;
             default:
