@@ -71,7 +71,8 @@ public class TermListActivity extends AppCompatActivity {
                 Toast.makeText(TermListActivity.this, "Term Deleted", Toast.LENGTH_SHORT).show();
 //                TODO
 //                  Some kind of logic to prevent term from being deleted if there are courses
-//                  associated with it.
+//                  associated with it. Maybe get courses associated with term and if size is
+//                  > 1 show a error message?
             }
         }).attachToRecyclerView(recyclerView);
 
