@@ -1,9 +1,11 @@
 package org.tylery.c196.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,9 +53,27 @@ public class TermListActivity extends AppCompatActivity {
         termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
             @Override
             public void onChanged(List<TermEntity> termEntities) {
-                adapter.setNotes(termEntities);
+                adapter.setTerms(termEntities);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                TermEntity deletedTerm = adapter.getTermAt(viewHolder.getAdapterPosition());
+                termViewModel.delete(deletedTerm);
+                Toast.makeText(TermListActivity.this, "Term Deleted", Toast.LENGTH_SHORT).show();
+//                TODO
+//                  Some kind of logic to prevent term from being deleted if there are courses
+//                  associated with it.
+            }
+        }).attachToRecyclerView(recyclerView);
 
     }
 

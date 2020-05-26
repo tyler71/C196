@@ -38,9 +38,13 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
         return terms.size();
     }
 
-    public void setNotes(List<TermEntity> terms) {
+    public void setTerms(List<TermEntity> terms) {
         this.terms = terms;
         notifyDataSetChanged();
+    }
+
+    public TermEntity getTermAt(int postition) {
+        return terms.get(postition);
     }
 
     class TermHolder extends RecyclerView.ViewHolder {
