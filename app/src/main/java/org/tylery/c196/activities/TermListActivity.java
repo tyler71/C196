@@ -15,7 +15,7 @@ import org.tylery.c196.viewmodel.TermViewModel;
 
 import java.util.List;
 
-public class ActivityTerms extends AppCompatActivity {
+public class TermListActivity extends AppCompatActivity {
     private TermViewModel termViewModel;
 
     @Override

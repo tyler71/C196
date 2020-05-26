@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.EditTermActivity"></activity>
-        <activity android:name=".activities.ActivityTerms">
+        <activity android:name=".activities.TermListActivity">
 
             <!-- <activity android:name=".activities.MainActivity"> -->
             <intent-filter>
