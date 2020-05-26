@@ -163,7 +163,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(TermEntity... termEntities) {
-            dao.insert(termEntities[0]);
+            dao.update(termEntities[0]);
             return null;
         }
     }
@@ -176,7 +176,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(CourseEntity... courseEntities) {
-            dao.insert(courseEntities[0]);
+            dao.update(courseEntities[0]);
             return null;
         }
     }
@@ -189,7 +189,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(AssessmentEntity... assessmentEntities) {
-            dao.insert(assessmentEntities[0]);
+            dao.update(assessmentEntities[0]);
             return null;
         }
     }
@@ -202,7 +202,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(NoteEntity... noteEntities) {
-            dao.insert(noteEntities[0]);
+            dao.update(noteEntities[0]);
             return null;
         }
     }
@@ -216,7 +216,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(TermEntity... termEntities) {
-            dao.insert(termEntities[0]);
+            dao.delete(termEntities[0]);
             return null;
         }
     }
@@ -229,7 +229,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(CourseEntity... courseEntities) {
-            dao.insert(courseEntities[0]);
+            dao.delete(courseEntities[0]);
             return null;
         }
     }
@@ -242,7 +242,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(AssessmentEntity... assessmentEntities) {
-            dao.insert(assessmentEntities[0]);
+            dao.delete(assessmentEntities[0]);
             return null;
         }
     }
@@ -255,7 +255,7 @@ public class C196Repository {
 
         @Override
         protected Void doInBackground(NoteEntity... noteEntities) {
-            dao.insert(noteEntities[0]);
+            dao.delete(noteEntities[0]);
             return null;
         }
     }
