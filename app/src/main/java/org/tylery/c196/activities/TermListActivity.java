@@ -25,6 +25,7 @@ import java.util.List;
 
 public class TermListActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
+    public static final int EDIT_TERM_REQUEST = 2;
 
     private TermViewModel termViewModel;
 
@@ -80,6 +81,11 @@ public class TermListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(TermEntity termEntity) {
                 Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+                intent.putExtra(AddEditTermActivity.EXTRA_ID, termEntity.getId());
+                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, termEntity.getTitle());
+                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, termEntity.getStart());
+                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, termEntity.getEnd());
+                startActivityForResult(intent, EDIT_TERM_REQUEST);
             }
         });
 
@@ -89,7 +95,6 @@ public class TermListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ADD_TERM_REQUEST && resultCode == RESULT_OK) {
-
 //            TODO
 //              Likely convert these to UTC datetime
             String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
@@ -99,7 +104,22 @@ public class TermListActivity extends AppCompatActivity {
             TermEntity termEntity = new TermEntity(title, startDate, endDate);
             termViewModel.insert(termEntity);
 
-            Toast.makeText(this, "Term saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Term added", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
+            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
+            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
+            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
+            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+            if(id == -1) {
+                Toast.makeText(this, "Error, term not saved", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            TermEntity termEntity = new TermEntity(title, startDate, endDate);
+            termEntity.setId(id);
+            termViewModel.update(termEntity);
+
+            Toast.makeText(this, "Term updated", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }

@@ -14,6 +14,8 @@ import android.widget.Toast;
 import org.tylery.c196.R;
 
 public class AddEditTermActivity extends AppCompatActivity {
+    public static final String EXTRA_ID =
+            "org.tylery.c196.activities.ID";
     public static final String EXTRA_TITLE =
             "org.tylery.c196.activities.EXTRA_TITLE";
     public static final String EXTRA_START_DATE =
@@ -35,7 +37,15 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextEndDate = findViewById(R.id.edit_term_end_date);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-        setTitle("Editing Note");
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXTRA_ID)) {
+            setTitle("Edit Term");
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
+            editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
+        } else {
+            setTitle("Add Note");
+        }
     }
 
     private void saveTerm() {
@@ -54,6 +64,11 @@ public class AddEditTermActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE, termTitle);
         data.putExtra(EXTRA_START_DATE, startDate);
         data.putExtra(EXTRA_END_DATE, endDate);
+
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if(id != -1) {
+            data.putExtra(EXTRA_ID, id);
+        }
 
         setResult(RESULT_OK, data);
         finish();
