@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import org.tylery.c196.R;
 
-public class EditTermActivity extends AppCompatActivity {
+public class AddEditTermActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE =
             "org.tylery.c196.activities.EXTRA_TITLE";
     public static final String EXTRA_START_DATE =
@@ -29,7 +28,7 @@ public class EditTermActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_term);
+        setContentView(R.layout.activity_add_edit_term);
 
         editTextTitle = findViewById(R.id.edit_term_title);
         editTextStartDate = findViewById(R.id.edit_term_start_date);

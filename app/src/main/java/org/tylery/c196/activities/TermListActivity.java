@@ -37,7 +37,7 @@ public class TermListActivity extends AppCompatActivity {
         buttonAddTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TermListActivity.this, EditTermActivity.class);
+                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
                 startActivityForResult(intent, ADD_TERM_REQUEST);
             }
         });
@@ -76,6 +76,13 @@ public class TermListActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(TermEntity termEntity) {
+                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+            }
+        });
+
     }
 
     @Override
@@ -85,9 +92,9 @@ public class TermListActivity extends AppCompatActivity {
 
 //            TODO
 //              Likely convert these to UTC datetime
-            String title = data.getStringExtra(EditTermActivity.EXTRA_TITLE);
-            String startDate = data.getStringExtra(EditTermActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(EditTermActivity.EXTRA_END_DATE);
+            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
+            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
+            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
 
             TermEntity termEntity = new TermEntity(title, startDate, endDate);
             termViewModel.insert(termEntity);
