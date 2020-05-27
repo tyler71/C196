@@ -44,7 +44,7 @@ public class AddEditTermActivity extends AppCompatActivity {
             editTextStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
         } else {
-            setTitle("Add Note");
+            setTitle("Add Term");
         }
     }
 
