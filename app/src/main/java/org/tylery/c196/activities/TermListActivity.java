@@ -21,7 +21,6 @@ import org.tylery.c196.adapters.TermAdapter;
 import org.tylery.c196.entities.TermEntity;
 import org.tylery.c196.viewmodel.TermViewModel;
 
-import java.util.List;
 
 public class TermListActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
@@ -34,12 +33,9 @@ public class TermListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_terms_list);
 
         FloatingActionButton buttonAddTerm = findViewById(R.id.btn_add_term);
-        buttonAddTerm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
-                startActivityForResult(intent, ADD_TERM_REQUEST);
-            }
+        buttonAddTerm.setOnClickListener(v -> {
+            Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+            startActivityForResult(intent, ADD_TERM_REQUEST);
         });
 
         RecyclerView recyclerView = findViewById(R.id.termListView);
@@ -50,12 +46,7 @@ public class TermListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
-        termViewModel.getAllTerms().observe(this, new Observer<List<TermEntity>>() {
-            @Override
-            public void onChanged(List<TermEntity> termEntities) {
-                adapter.setTerms(termEntities);
-            }
-        });
+        termViewModel.getAllTerms().observe(this, termEntities -> adapter.setTerms(termEntities));
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
@@ -76,16 +67,13 @@ public class TermListActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(TermEntity termEntity) {
-                Intent intent = new Intent(TermListActivity.this, TermActivity.class);
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, termEntity.getId());
-                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, termEntity.getTitle());
-                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, termEntity.getStart());
-                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, termEntity.getEnd());
-                startActivity(intent);
-            }
+        adapter.setOnItemClickListener(termEntity -> {
+            Intent intent = new Intent(TermListActivity.this, TermActivity.class);
+            intent.putExtra(AddEditTermActivity.EXTRA_ID, termEntity.getId());
+            intent.putExtra(AddEditTermActivity.EXTRA_TITLE, termEntity.getTitle());
+            intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, termEntity.getStart());
+            intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, termEntity.getEnd());
+            startActivity(intent);
         });
 
     }
