@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,7 +17,7 @@ import org.tylery.c196.R;
 import org.tylery.c196.entities.TermEntity;
 import org.tylery.c196.viewmodel.TermViewModel;
 
-public class TermActivity extends Activity {
+public class TermActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "org.tylery.c196.activities.ID";
     public static final String EXTRA_TITLE =
