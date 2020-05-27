@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.AddEditTermActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.TermListActivity"/>
+            android:launchMode="singleTop"/>
         <activity android:name=".activities.TermActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.TermListActivity"/>

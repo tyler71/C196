@@ -92,4 +92,11 @@ public class AddEditTermActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+//        Go back to the correct previous activity page
+        finish();
+        return true;
+    }
 }
