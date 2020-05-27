@@ -29,8 +29,6 @@ public class C196Repository {
     private AssessmentDao assessmentDao;
     private LiveData<List<AssessmentEntity>> mCourseAssessments;
 
-    private int termID;
-    private int courseID;
 
     public C196Repository(Application application) {
         C196Database database = C196Database.getInstance(application);
@@ -38,13 +36,8 @@ public class C196Repository {
         mAllTerms = termDao.getAllTerms();
 
         courseDao = database.courseDao();
-        mTermCourses = courseDao.getTermCourses(termID);
-
         assessmentDao = database.assessmentDao();
-        mCourseAssessments = assessmentDao.getCourseAssessments(courseID);
-
         noteDao = database.noteDao();
-        mCourseNotes = noteDao.getCourseNotes(courseID);
     }
 
     public void insert(TermEntity termEntity) {
@@ -92,13 +85,13 @@ public class C196Repository {
     }
 
     public LiveData<List<CourseEntity>> getTermCourses(int termID) {
-        return mTermCourses;
+        return courseDao.getTermCourses(termID);
     }
     public LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID) {
-        return mCourseAssessments;
+        return assessmentDao.getCourseAssessments(courseID);
     }
     public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
-        return mCourseNotes;
+        return noteDao.getCourseNotes(courseID);
     }
 
     private static class InsertAsyncTerm extends AsyncTask<TermEntity, Void, Void> {
