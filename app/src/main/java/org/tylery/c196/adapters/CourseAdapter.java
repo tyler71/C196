@@ -43,6 +43,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         notifyDataSetChanged();
     }
 
+    public CourseEntity getCourseAt(int position) {
+        return courses.get(position);
+    }
+
     class CourseHolder extends RecyclerView.ViewHolder {
         private TextView textViewCourseTitle;
 //        private TextView textViewCourseStartDate;

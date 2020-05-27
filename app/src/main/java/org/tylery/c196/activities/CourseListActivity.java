@@ -2,15 +2,19 @@ package org.tylery.c196.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.tylery.c196.R;
 import org.tylery.c196.adapters.CourseAdapter;
+import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.viewmodel.CourseViewModel;
 
 public class CourseListActivity extends AppCompatActivity {
@@ -35,5 +39,19 @@ public class CourseListActivity extends AppCompatActivity {
 
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         courseViewModel.getTermCourses(termID).observe(this, courseEntities -> adapter.setCourses(courseEntities));
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                CourseEntity deletedCourse = adapter.getCourseAt(viewHolder.getAdapterPosition());
+                courseViewModel.delete(deletedCourse);
+                Toast.makeText(CourseListActivity.this, "Course deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 }

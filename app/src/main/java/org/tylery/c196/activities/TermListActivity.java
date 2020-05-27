@@ -57,7 +57,7 @@ public class TermListActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 TermEntity deletedTerm = adapter.getTermAt(viewHolder.getAdapterPosition());
                 termViewModel.delete(deletedTerm);
-                Toast.makeText(TermListActivity.this, "Term Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TermListActivity.this, "Term deleted", Toast.LENGTH_SHORT).show();
 //                TODO
 //                  Some kind of logic to prevent term from being deleted if there are courses
 //                  associated with it. Maybe get courses associated with term and if size is
