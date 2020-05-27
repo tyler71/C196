@@ -50,19 +50,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 
     class CourseHolder extends RecyclerView.ViewHolder {
         private TextView textViewCourseTitle;
-//        private TextView textViewCourseStartDate;
         private TextView textViewCourseEndDate;
-//        private boolean  alert;
         private TextView textViewStatus;
-//        private TextView textViewMentorName;
-//        private TextView textViewMentorPhone;
-//        private TextView textViewmentorEmail;
 
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
             textViewCourseTitle = itemView.findViewById(R.id.text_view_course_title);
             textViewCourseEndDate = itemView.findViewById(R.id.text_view_course_end_date);
             textViewStatus = itemView.findViewById(R.id.text_view_course_status);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if(listener != null && position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(courses.get(position));
+                }
+            });
+
         }
     }
 

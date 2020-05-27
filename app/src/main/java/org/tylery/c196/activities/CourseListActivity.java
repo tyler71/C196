@@ -53,9 +53,19 @@ public class CourseListActivity extends AppCompatActivity {
                 Toast.makeText(CourseListActivity.this, "Course deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
         adapter.setOnItemClickListener(courseEntity -> {
             Intent intent = new Intent(CourseListActivity.this, CourseActivity.class);
-//            intent.putExtra
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ID, courseEntity.getId());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE, courseEntity.getTitle());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE, courseEntity.getStartDate());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE, courseEntity.getEndDate());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, courseEntity.isAlert());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, courseEntity.getStatus());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME, courseEntity.getMentorName());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL, courseEntity.getMentorEmail());
+            intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE, courseEntity.getMentorPhone());
+            startActivity(intent);
         });
     }
 }

@@ -29,6 +29,9 @@
         <activity android:name=".activities.CourseListActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.TermActivity"/>
+        <activity android:name=".activities.CourseActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.CourseListActivity"/>
     </application>
 
 </manifest>
