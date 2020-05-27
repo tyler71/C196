@@ -86,6 +86,10 @@ public class TermActivity extends AppCompatActivity {
                 return;
             }
 
+            textViewTitle.setText(data.getStringExtra(EXTRA_TITLE));
+            textViewStartDate.setText(data.getStringExtra(EXTRA_START_DATE));
+            textViewEndDate.setText(data.getStringExtra(EXTRA_END_DATE));
+
             TermEntity termEntity = new TermEntity(title, startDate, endDate);
             termEntity.setId(id);
             termViewModel.update(termEntity);
