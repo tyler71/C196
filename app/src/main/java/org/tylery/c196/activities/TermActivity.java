@@ -1,6 +1,5 @@
 package org.tylery.c196.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -96,7 +95,7 @@ public class TermActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Term updated", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Term not saved", Toast.LENGTH_SHORT).show();
         }
     }
 }
