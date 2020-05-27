@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
-    List<CourseEntity> courses = new ArrayList<>();
+    private List<CourseEntity> courses = new ArrayList<>();
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -63,5 +64,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
             textViewCourseEndDate = itemView.findViewById(R.id.text_view_course_end_date);
             textViewStatus = itemView.findViewById(R.id.text_view_course_status);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(CourseEntity courseEntity);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

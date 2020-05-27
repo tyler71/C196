@@ -27,8 +27,8 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_list);
 
-        Intent intent = getIntent();
-        termID = intent.getIntExtra(TermActivity.EXTRA_ID, -1);
+        Intent loadCourseListIntent = getIntent();
+        termID = loadCourseListIntent.getIntExtra(TermActivity.EXTRA_ID, -1);
 
         RecyclerView recyclerView = findViewById(R.id.courseListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,5 +53,9 @@ public class CourseListActivity extends AppCompatActivity {
                 Toast.makeText(CourseListActivity.this, "Course deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(courseEntity -> {
+            Intent intent = new Intent(CourseListActivity.this, CourseActivity.class);
+//            intent.putExtra
+        });
     }
 }
