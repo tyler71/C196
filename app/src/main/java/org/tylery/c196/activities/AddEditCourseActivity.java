@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.tylery.c196.R;
 
-public class EditCourseActivity extends AppCompatActivity {
+public class AddEditCourseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
