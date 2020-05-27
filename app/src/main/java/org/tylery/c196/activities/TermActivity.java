@@ -55,7 +55,7 @@ public class TermActivity extends AppCompatActivity {
         textViewEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
 
         courseListButton.setOnClickListener(v -> {
-            Intent loadCourseListIntent = new Intent();
+            Intent loadCourseListIntent = new Intent(TermActivity.this, CourseListActivity.class);
             loadCourseListIntent.putExtra(EXTRA_ID, termID);
             startActivity(loadCourseListIntent);
         });
