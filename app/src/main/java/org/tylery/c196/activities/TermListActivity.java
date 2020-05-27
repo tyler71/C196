@@ -67,10 +67,10 @@ public class TermListActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(termEntity -> {
             Intent intent = new Intent(TermListActivity.this, TermActivity.class);
-            intent.putExtra(AddEditTermActivity.EXTRA_TERM_ID, termEntity.getId());
-            intent.putExtra(AddEditTermActivity.EXTRA_TERM_TITLE, termEntity.getTitle());
-            intent.putExtra(AddEditTermActivity.EXTRA_TERM_START_DATE, termEntity.getStart());
-            intent.putExtra(AddEditTermActivity.EXTRA_TERM_END_DATE, termEntity.getEnd());
+            intent.putExtra(TermActivity.EXTRA_ID, termEntity.getId());
+            intent.putExtra(TermActivity.EXTRA_TITLE, termEntity.getTitle());
+            intent.putExtra(TermActivity.EXTRA_START_DATE, termEntity.getStart());
+            intent.putExtra(TermActivity.EXTRA_END_DATE, termEntity.getEnd());
             startActivity(intent);
         });
 
