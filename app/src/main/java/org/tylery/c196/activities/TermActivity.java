@@ -3,12 +3,14 @@ package org.tylery.c196.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
 import org.tylery.c196.entities.TermEntity;
@@ -38,6 +40,7 @@ public class TermActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
         setContentView(R.layout.activity_term);
 
         textViewTitle = findViewById(R.id.textview_detailed_term_title);
@@ -55,6 +58,16 @@ public class TermActivity extends Activity {
             Intent loadCourseListIntent = new Intent();
             loadCourseListIntent.putExtra(EXTRA_ID, termID);
             startActivity(loadCourseListIntent);
+        });
+
+        FloatingActionButton buttonEditTerm = findViewById(R.id.btn_add_term);
+        buttonEditTerm.setOnClickListener(v -> {
+            Intent editTermIntent = new Intent(TermActivity.this, AddEditTermActivity.class);
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_ID, intent.getIntExtra(EXTRA_ID, -1));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TITLE, intent.getStringExtra(EXTRA_TITLE));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_START_DATE, intent.getStringExtra(EXTRA_START_DATE));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_END_DATE, intent.getStringExtra(EXTRA_END_DATE));
+            startActivityForResult(editTermIntent, EDIT_TERM_REQUEST);
         });
 
     }
