@@ -12,6 +12,9 @@
         <activity android:name=".activities.AddEditTermActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.TermListActivity"/>
+        <activity android:name=".activities.TermActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.TermListActivity"/>
         <activity android:name=".activities.TermListActivity">
 
             <!-- <activity android:name=".activities.MainActivity"> -->

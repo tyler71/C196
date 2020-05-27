@@ -25,7 +25,6 @@ import java.util.List;
 
 public class TermListActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
-    public static final int EDIT_TERM_REQUEST = 2;
 
     private TermViewModel termViewModel;
 
@@ -80,17 +79,16 @@ public class TermListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(TermEntity termEntity) {
-                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+                Intent intent = new Intent(TermListActivity.this, TermActivity.class);
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, termEntity.getId());
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, termEntity.getTitle());
                 intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, termEntity.getStart());
                 intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, termEntity.getEnd());
-                startActivityForResult(intent, EDIT_TERM_REQUEST);
+                startActivity(intent);
             }
         });
 
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -105,23 +103,9 @@ public class TermListActivity extends AppCompatActivity {
             termViewModel.insert(termEntity);
 
             Toast.makeText(this, "Term added", Toast.LENGTH_SHORT).show();
-        } else if (requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
-            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
-            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
-            if(id == -1) {
-                Toast.makeText(this, "Error, term not saved", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            TermEntity termEntity = new TermEntity(title, startDate, endDate);
-            termEntity.setId(id);
-            termViewModel.update(termEntity);
-
-            Toast.makeText(this, "Term updated", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Term not added", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
