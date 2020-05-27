@@ -22,14 +22,14 @@ android:layout_marginTop="8dp">
         />
 
     <TextView
-        android:id="@+id/text_view_course_start_date"
+        android:id="@+id/text_view_course_end_date"
         android:layout_marginRight="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:layout_below="@id/text_view_course_title"
-        android:text="StartDate"
+        android:text="End Date"
         />
 
     <TextView
@@ -37,7 +37,7 @@ android:layout_marginTop="8dp">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_course_title"
-        android:layout_toEndOf="@id/text_view_course_start_date"
+        android:layout_toEndOf="@id/text_view_course_end_date"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:text="Status"
         />
