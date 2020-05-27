@@ -63,10 +63,10 @@ public class TermActivity extends AppCompatActivity {
         FloatingActionButton buttonEditTerm = findViewById(R.id.btn_add_term);
         buttonEditTerm.setOnClickListener(v -> {
             Intent editTermIntent = new Intent(TermActivity.this, AddEditTermActivity.class);
-            editTermIntent.putExtra(AddEditTermActivity.EXTRA_ID, intent.getIntExtra(EXTRA_ID, -1));
-            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TITLE, intent.getStringExtra(EXTRA_TITLE));
-            editTermIntent.putExtra(AddEditTermActivity.EXTRA_START_DATE, intent.getStringExtra(EXTRA_START_DATE));
-            editTermIntent.putExtra(AddEditTermActivity.EXTRA_END_DATE, intent.getStringExtra(EXTRA_END_DATE));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TERM_ID, intent.getIntExtra(EXTRA_ID, -1));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TERM_TITLE, intent.getStringExtra(EXTRA_TITLE));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TERM_START_DATE, intent.getStringExtra(EXTRA_START_DATE));
+            editTermIntent.putExtra(AddEditTermActivity.EXTRA_TERM_END_DATE, intent.getStringExtra(EXTRA_END_DATE));
             startActivityForResult(editTermIntent, EDIT_TERM_REQUEST);
         });
 
@@ -76,10 +76,10 @@ public class TermActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_TERM_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
-            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
-            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_TITLE);
+            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_START_DATE);
+            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_END_DATE);
+            int id = data.getIntExtra(AddEditTermActivity.EXTRA_TERM_ID, -1);
             if(id == -1) {
                 Toast.makeText(this, "Error, term not saved", Toast.LENGTH_SHORT).show();
                 return;

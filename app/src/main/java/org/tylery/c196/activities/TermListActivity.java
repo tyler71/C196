@@ -67,10 +67,10 @@ public class TermListActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(termEntity -> {
             Intent intent = new Intent(TermListActivity.this, TermActivity.class);
-            intent.putExtra(AddEditTermActivity.EXTRA_ID, termEntity.getId());
-            intent.putExtra(AddEditTermActivity.EXTRA_TITLE, termEntity.getTitle());
-            intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, termEntity.getStart());
-            intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, termEntity.getEnd());
+            intent.putExtra(AddEditTermActivity.EXTRA_TERM_ID, termEntity.getId());
+            intent.putExtra(AddEditTermActivity.EXTRA_TERM_TITLE, termEntity.getTitle());
+            intent.putExtra(AddEditTermActivity.EXTRA_TERM_START_DATE, termEntity.getStart());
+            intent.putExtra(AddEditTermActivity.EXTRA_TERM_END_DATE, termEntity.getEnd());
             startActivity(intent);
         });
 
@@ -81,9 +81,9 @@ public class TermListActivity extends AppCompatActivity {
         if(requestCode == ADD_TERM_REQUEST && resultCode == RESULT_OK) {
 //            TODO
 //              Likely convert these to UTC datetime
-            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
-            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_START_DATE);
-            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_END_DATE);
+            String title = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_TITLE);
+            String startDate = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_START_DATE);
+            String endDate = data.getStringExtra(AddEditTermActivity.EXTRA_TERM_END_DATE);
 
             TermEntity termEntity = new TermEntity(title, startDate, endDate);
             termViewModel.insert(termEntity);
