@@ -18,7 +18,7 @@ import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.viewmodel.CourseViewModel;
 
 public class CourseListActivity extends AppCompatActivity {
-    public static final String EXTRA_COURSE_TERM_ID = "org.tylery.c196.activities";
+    public static final String EXTRA_COURSE_TERM_ID = "org.tylery.c196.activities.termID";
 
     private int termID;
 

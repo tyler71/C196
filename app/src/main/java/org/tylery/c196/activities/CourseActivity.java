@@ -171,15 +171,18 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent loadCourseItem = new Intent();
         switch (item.getItemId()) {
             case R.id.detailed_course_menu_notes:
-                Intent loadCourseNotesIntent = new Intent();
-                loadCourseNotesIntent.putExtra(.EXTRA_COURSE_ID, courseID);
+                loadCourseItem.putExtra(CourseNotesListActivity.EXTRA_COURSE_ID, courseID);
+                startActivity(loadCourseItem);
                 break;
             case R.id.detailed_course_menu_assessments:
+                loadCourseItem.putExtra(CourseAssessmentsListActivity.EXTRA_COURSE_ID, courseID);
+                startActivity(loadCourseItem);
                 break;
             default:
-                return super.onOptionsItemSelected(item)
+                return super.onOptionsItemSelected(item);
         }
     }
 
