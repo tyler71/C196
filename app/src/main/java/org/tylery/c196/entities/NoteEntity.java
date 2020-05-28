@@ -14,7 +14,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = "courseID",
                 onDelete = CASCADE))
 public class NoteEntity extends GenericEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private int courseID;
