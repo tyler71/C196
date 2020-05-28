@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import org.tylery.c196.R;
+
 public class NoteActivity extends AppCompatActivity {
 
     @Override
