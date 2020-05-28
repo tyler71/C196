@@ -2,10 +2,15 @@ package org.tylery.c196.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.tylery.c196.R;
@@ -63,7 +68,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextEndDate.setText(intent.getStringExtra(EXTRA_COURSE_END_DATE));
             if(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false))
                 editCheckboxCourseAlarm.performClick();
-            editRadioStatus.check(getStatusID(intent.getIntExtra(EXTRA_COURSE_STATUS, -1)));
+            editRadioStatus.check(getBtnID(intent.getIntExtra(EXTRA_COURSE_STATUS, -1)));
             editTextCourseMentorName.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
             getEditTextCourseMentorPhone.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
             editTextCourseMentorEmail.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
@@ -72,7 +77,71 @@ public class AddEditCourseActivity extends AppCompatActivity {
         }
     }
 
-    private int getStatusID(int id) {
+    private void saveCourse() {
+        String courseTitle = editTextTitle.getText().toString();
+        String courseStartDate = editTextStartDate.getText().toString();
+        String courseEndDate = editTextEndDate.getText().toString();
+        boolean courseAlarmEnabled = editCheckboxCourseAlarm.isChecked();
+        int courseStatus = getRadioStatus(editRadioStatus.getCheckedRadioButtonId());
+        String courseMentorName = editTextCourseMentorName.getText().toString();
+        String courseMentorPhone = getEditTextCourseMentorPhone.getText().toString();
+        String courseMentorEmail = editTextCourseMentorEmail.getText().toString();
+
+        if(courseTitle.trim().isEmpty()
+            || courseStartDate.trim().isEmpty()
+            || courseEndDate.trim().isEmpty()
+            || courseStatus == -1
+            || courseMentorName.trim().isEmpty()
+            || courseMentorPhone.trim().isEmpty()
+            || courseMentorEmail.trim().isEmpty()) {
+            Toast.makeText(this, "Course not saved. Empty fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_COURSE_TITLE, courseTitle);
+        data.putExtra(EXTRA_COURSE_START_DATE, courseStartDate);
+        data.putExtra(EXTRA_COURSE_END_DATE, courseEndDate);
+        data.putExtra(EXTRA_COURSE_ALERT, courseAlarmEnabled);
+        data.putExtra(EXTRA_COURSE_STATUS, courseStatus);
+        data.putExtra(EXTRA_COURSE_MENTOR_NAME, courseMentorName);
+        data.putExtra(EXTRA_COURSE_MENTOR_PHONE, courseMentorPhone);
+        data.putExtra(EXTRA_COURSE_MENTOR_EMAIL, courseMentorEmail);
+
+        int courseID = getIntent().getIntExtra(EXTRA_COURSE_ID, -1);
+        if(courseID != -1) {
+            data.putExtra(EXTRA_COURSE_ID, courseID);
+        }
+
+        setResult(RESULT_OK, data);
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.add_edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+       switch (item.getItemId()) {
+           case R.id.menu_add_edit_save:
+               saveCourse();
+               return true;
+           default:
+               return super.onOptionsItemSelected(item);
+       }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+       finish();
+       return true;
+    }
+
+    private int getBtnID(int id) {
        int btn_id;
        switch (id) {
            case CourseActivity.STATUS_DROPPED:
@@ -91,5 +160,25 @@ public class AddEditCourseActivity extends AppCompatActivity {
                btn_id = -1;
        }
        return btn_id;
+    }
+    private int getRadioStatus(int btnID) {
+        int statusID;
+        switch (btnID) {
+            case R.id.radio_course_status_dropped:
+                statusID = CourseActivity.STATUS_DROPPED;
+                break;
+            case R.id.radio_course_status_planned:
+                statusID = CourseActivity.STATUS_PLANNED;
+                break;
+            case R.id.radio_course_status_in_progress:
+                statusID = CourseActivity.STATUS_IN_PROGRESS;
+                break;
+            case R.id.radio_course_status_completed:
+                statusID = CourseActivity.STATUS_COMPLETED;
+                break;
+            default:
+                statusID = -1;
+        }
+        return statusID;
     }
 }

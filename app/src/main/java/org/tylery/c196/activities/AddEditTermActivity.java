@@ -78,14 +78,14 @@ public class AddEditTermActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.edit_term, menu);
+        menuInflater.inflate(R.menu.add_edit, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_save_term:
+            case R.id.menu_add_edit_save:
                 saveTerm();
                 return true;
             default:

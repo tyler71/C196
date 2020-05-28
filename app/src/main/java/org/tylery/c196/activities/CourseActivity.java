@@ -1,18 +1,26 @@
 package org.tylery.c196.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
+import org.tylery.c196.entities.CourseEntity;
+import org.tylery.c196.viewmodel.CourseViewModel;
+import org.tylery.c196.viewmodel.TermViewModel;
 
 public class CourseActivity extends AppCompatActivity {
+    public static final String EXTRA_COURSE_TERM_ID =
+            "org.tylery.c196.activities.COURSE_TERM_ID";
     public static final String EXTRA_COURSE_ID =
             "org.tylery.c196.activities.COURSE_ID";
     public static final String EXTRA_COURSE_TITLE =
@@ -39,6 +47,9 @@ public class CourseActivity extends AppCompatActivity {
 
     public static final int EDIT_COURSE_REQUEST = 5;
 
+    private CourseViewModel courseViewModel;
+
+    private int termID;
     private int courseID;
     private TextView textViewTitle;
     private TextView textViewStartDate;
@@ -54,6 +65,7 @@ public class CourseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         setContentView(R.layout.activity_course);
 
         textViewTitle = findViewById(R.id.detailed_course_title);
@@ -66,6 +78,7 @@ public class CourseActivity extends AppCompatActivity {
         textViewCourseMentorEmail = findViewById(R.id.detailed_course_mentor_email_address);
 
         Intent parentIntent = getIntent();
+        termID = parentIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
         courseID = parentIntent.getIntExtra(EXTRA_COURSE_ID, -1);
         textViewTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
         textViewStartDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
@@ -96,6 +109,53 @@ public class CourseActivity extends AppCompatActivity {
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, alarmEnabled);
             startActivityForResult(editCourseIntent, EDIT_COURSE_REQUEST);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
+            int courseID = data.getIntExtra(AddEditCourseActivity.EXTRA_COURSE_ID, -1);
+            String courseTitle = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE);
+            String courseStartDate = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE);
+            String courseEndDate = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE);
+            boolean alarmEnabled = data.getBooleanExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, false);
+            int courseStatus = data.getIntExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, -1);
+            String courseMentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME);
+            String courseMentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE);
+            String courseMentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL);
+
+            if(courseID == -1) {
+                Toast.makeText(this, "Error, course not saved", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(alarmEnabled) {
+                imageViewAlarm.setVisibility(View.VISIBLE);
+            } else {
+                imageViewAlarm.setVisibility(View.INVISIBLE);
+            }
+
+            textViewTitle.setText(courseTitle);
+            textViewStartDate.setText(courseStartDate);
+            textViewEndDate.setText(courseEndDate);
+            textViewCourseStatus.setText(getStatus(courseStatus));
+            textViewCourseMentorName.setText(courseMentorName);
+            textViewCourseMentorPhone.setText(courseMentorPhone);
+            textViewCourseMentorEmail.setText(courseMentorEmail);
+
+            CourseEntity courseEntity = new CourseEntity(termID,
+                    courseTitle, courseStartDate, courseEndDate, alarmEnabled,
+                    courseStatus, courseMentorName, courseMentorPhone, courseMentorEmail);
+
+            courseEntity.setId(courseID);
+            courseViewModel.update(courseEntity);
+
+            Toast.makeText(this, "Course updated", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(this, "Course not updated", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static String getStatus(int status) {

@@ -56,6 +56,7 @@ public class CourseListActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(courseEntity -> {
             Intent intent = new Intent(CourseListActivity.this, CourseActivity.class);
+            intent.putExtra(CourseActivity.EXTRA_COURSE_TERM_ID, termID);
             intent.putExtra(CourseActivity.EXTRA_COURSE_ID, courseEntity.getId());
             intent.putExtra(CourseActivity.EXTRA_COURSE_TITLE, courseEntity.getTitle());
             intent.putExtra(CourseActivity.EXTRA_COURSE_START_DATE, courseEntity.getStartDate());
