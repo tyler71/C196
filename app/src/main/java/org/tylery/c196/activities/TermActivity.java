@@ -56,7 +56,7 @@ public class TermActivity extends AppCompatActivity {
 
         courseListButton.setOnClickListener(v -> {
             Intent loadCourseListIntent = new Intent(TermActivity.this, CourseListActivity.class);
-            loadCourseListIntent.putExtra(EXTRA_ID, termID);
+            loadCourseListIntent.putExtra(CourseListActivity.EXTRA_COURSE_TERM_ID, termID);
             startActivity(loadCourseListIntent);
         });
 
