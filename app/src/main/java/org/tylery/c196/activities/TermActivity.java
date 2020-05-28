@@ -50,6 +50,9 @@ public class TermActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         termID = intent.getIntExtra(EXTRA_ID, -1);
+
+        setTitle("Term " + termID);
+
         textViewTitle.setText(intent.getStringExtra(EXTRA_TITLE));
         textViewStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
         textViewEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));

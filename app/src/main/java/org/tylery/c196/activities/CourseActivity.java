@@ -84,6 +84,9 @@ public class CourseActivity extends AppCompatActivity {
         Intent parentIntent = getIntent();
         termID = parentIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
         courseID = parentIntent.getIntExtra(EXTRA_COURSE_ID, -1);
+
+        setTitle("Course " + courseID);
+
         textViewTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
         textViewStartDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
         textViewEndDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));

@@ -21,6 +21,7 @@
         <activity
             android:name=".activities.TermListActivity"
             android:launchMode="singleTop"
+            android:label="Terms"
             android:parentActivityName=".activities.NavigationPanelActivity" />
         <activity
             android:name=".activities.TermActivity"

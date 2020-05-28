@@ -34,6 +34,8 @@ public class CourseNotesListActivity extends AppCompatActivity {
 
         Intent loadNoteListIntent = getIntent();
         courseID = loadNoteListIntent.getIntExtra(EXTRA_COURSE_ID, -1);
+        
+        setTitle("Course " + courseID + " Notes");
 
         RecyclerView recyclerView = findViewById(R.id.noteListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

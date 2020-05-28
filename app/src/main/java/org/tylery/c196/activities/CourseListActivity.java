@@ -31,6 +31,7 @@ public class CourseListActivity extends AppCompatActivity {
 
         Intent loadCourseListIntent = getIntent();
         termID = loadCourseListIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
+        setTitle("Term " + termID + " Courses");
 
         RecyclerView recyclerView = findViewById(R.id.courseListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
