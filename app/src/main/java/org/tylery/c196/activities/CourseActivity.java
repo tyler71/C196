@@ -99,13 +99,13 @@ public class CourseActivity extends AppCompatActivity {
         buttonEditCourse.setOnClickListener(v -> {
             Intent editCourseIntent = new Intent(CourseActivity.this, AddEditCourseActivity.class);
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ID, courseID);
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE, parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE, parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE, parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE, textViewTitle.getText().toString());
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE, textViewStartDate.getText().toString());
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE, textViewEndDate.getText().toString());
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, status);
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME, textViewCourseMentorName.getText().toString());
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE, textViewCourseMentorPhone.getText().toString());
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL, textViewCourseMentorEmail.getText().toString());
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, alarmEnabled);
             startActivityForResult(editCourseIntent, EDIT_COURSE_REQUEST);
         });
