@@ -39,7 +39,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
     private EditText getEditTextCourseMentorPhone;
     private EditText editTextCourseMentorEmail;
 
-    @Override
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_course);
@@ -63,13 +63,33 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextEndDate.setText(intent.getStringExtra(EXTRA_COURSE_END_DATE));
             if(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false))
                 editCheckboxCourseAlarm.performClick();
-//            Should be passed ID of the correct radio button
-            editRadioStatus.check(intent.getIntExtra(EXTRA_COURSE_STATUS, -1));
+            editRadioStatus.check(getStatusID(intent.getIntExtra(EXTRA_COURSE_STATUS, -1)));
             editTextCourseMentorName.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
             getEditTextCourseMentorPhone.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
             editTextCourseMentorEmail.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
         } else {
             setTitle("Add Course");
         }
+    }
+
+    private int getStatusID(int id) {
+       int btn_id;
+       switch (id) {
+           case CourseActivity.STATUS_DROPPED:
+               btn_id = R.id.radio_course_status_dropped;
+               break;
+           case CourseActivity.STATUS_PLANNED:
+               btn_id = R.id.radio_course_status_planned;
+               break;
+           case CourseActivity.STATUS_IN_PROGRESS:
+               btn_id = R.id.radio_course_status_in_progress;
+               break;
+           case CourseActivity.STATUS_COMPLETED:
+               btn_id = R.id.radio_course_status_completed;
+               break;
+           default:
+               btn_id = -1;
+       }
+       return btn_id;
     }
 }

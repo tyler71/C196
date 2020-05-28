@@ -89,7 +89,7 @@ public class CourseActivity extends AppCompatActivity {
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE, parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE, parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE, parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));
-            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, parentIntent.getStringExtra(EXTRA_COURSE_STATUS));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, status);
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
