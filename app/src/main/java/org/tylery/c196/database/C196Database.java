@@ -9,6 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import org.tylery.c196.activities.CourseActivity;
 import org.tylery.c196.dao.AssessmentDao;
 import org.tylery.c196.dao.CourseDao;
 import org.tylery.c196.dao.NoteDao;
@@ -76,11 +77,11 @@ public abstract class C196Database extends RoomDatabase {
             termDao.insert(new TermEntity("Term 3", "01-01-2022", "06-06-2023"));
 
             courseDao.insert(new CourseEntity(1, "Course 1", "01-01-2020", "06-05-2020",
-                    true, "In Progress", "Bob", "5555555555", "bob@null.com"));
+                    true, CourseActivity.STATUS_IN_PROGRESS, "Bob", "5555555555", "bob@null.com"));
             courseDao.insert(new CourseEntity(1, "Course 2", "01-01-2020", "06-05-2020",
-                    false, "In Progress", "Bob", "5555555555", "bob@null.com"));
+                    false, CourseActivity.STATUS_COMPLETED, "Bob", "5555555555", "bob@null.com"));
             courseDao.insert(new CourseEntity(2, "Course 3", "01-01-2020", "06-05-2020",
-                    false, "In Progress", "Bob", "5555555555", "bob@null.com"));
+                    false, CourseActivity.STATUS_PLANNED, "Bob", "5555555555", "bob@null.com"));
 
             assessmentDao.insert(new AssessmentEntity(1, "test1", "performance assessment", "03-03-2020", true));
             assessmentDao.insert(new AssessmentEntity(2, "test1", "performance assessment", "03-03-2020", true));

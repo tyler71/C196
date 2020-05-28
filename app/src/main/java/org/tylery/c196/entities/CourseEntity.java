@@ -23,12 +23,12 @@ public class CourseEntity extends GenericEntity {
     private String startDate;
     private String endDate;
     private boolean alert;
-    private String status;
+    private int status;
     private String mentorName;
     private String mentorPhone;
     private String mentorEmail;
 
-    public CourseEntity(int termID, String title, String startDate, String endDate, boolean alert, String status, String mentorName, String mentorPhone, String mentorEmail) {
+    public CourseEntity(int termID, String title, String startDate, String endDate, boolean alert, int status, String mentorName, String mentorPhone, String mentorEmail) {
         this.termID = termID;
         this.title = title;
         this.startDate = startDate;
@@ -88,11 +88,11 @@ public class CourseEntity extends GenericEntity {
         this.alert = alert;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

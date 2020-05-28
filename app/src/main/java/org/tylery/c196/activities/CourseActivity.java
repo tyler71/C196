@@ -32,13 +32,19 @@ public class CourseActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_MENTOR_EMAIL =
             "org.tylery.c196.activities.COURSE_MENTOR_EMAIL";
 
+    public static final int STATUS_DROPPED = 0;
+    public static final int STATUS_PLANNED = 1;
+    public static final int STATUS_IN_PROGRESS = 2;
+    public static final int STATUS_COMPLETED = 3;
+
     public static final int EDIT_COURSE_REQUEST = 5;
 
     private int courseID;
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
-    private TextView status;
+    private int status;
+    private TextView textViewCourseStatus;
     private TextView textViewCourseMentorName;
     private TextView textViewCourseMentorPhone;
     private TextView textViewCourseMentorEmail;
@@ -53,7 +59,7 @@ public class CourseActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.detailed_course_title);
         textViewStartDate = findViewById(R.id.detailed_course_start_date);
         textViewEndDate = findViewById(R.id.detailed_course_end_date);
-        status = findViewById(R.id.detailed_course_status);
+        textViewCourseStatus = findViewById(R.id.detailed_course_status);
         imageViewAlarm = findViewById(R.id.detailed_image_alarm);
         textViewCourseMentorName = findViewById(R.id.detailed_course_mentor_name);
         textViewCourseMentorPhone = findViewById(R.id.detailed_course_mentor_phone_number);
@@ -64,7 +70,8 @@ public class CourseActivity extends AppCompatActivity {
         textViewTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
         textViewStartDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
         textViewEndDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));
-        status.setText(parentIntent.getStringExtra(EXTRA_COURSE_STATUS));
+        status = parentIntent.getIntExtra(EXTRA_COURSE_STATUS, -1);
+        textViewCourseStatus.setText(CourseActivity.getStatus(status));
         textViewCourseMentorName.setText(parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
         textViewCourseMentorPhone.setText(parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
         textViewCourseMentorEmail.setText(parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
@@ -89,5 +96,27 @@ public class CourseActivity extends AppCompatActivity {
             editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, alarmEnabled);
             startActivityForResult(editCourseIntent, EDIT_COURSE_REQUEST);
         });
+    }
+
+    public static String getStatus(int status) {
+        String result;
+        switch (status) {
+            case STATUS_DROPPED:
+                result = "Dropped";
+                break;
+            case STATUS_PLANNED:
+                result = "Plan to take";
+                break;
+            case STATUS_IN_PROGRESS:
+                result = "In progress";
+                break;
+            case STATUS_COMPLETED:
+                result = "Completed";
+                break;
+            default:
+                result = "";
+                break;
+        }
+        return result;
     }
 }

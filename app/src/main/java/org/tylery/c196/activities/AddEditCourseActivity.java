@@ -61,7 +61,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextTitle.setText(intent.getStringExtra(EXTRA_COURSE_TITLE));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_COURSE_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_COURSE_END_DATE));
-//            editCheckboxCourseAlarm.setActivated(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false));
             if(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false))
                 editCheckboxCourseAlarm.performClick();
 //            Should be passed ID of the correct radio button

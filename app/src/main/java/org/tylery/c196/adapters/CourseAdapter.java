@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.tylery.c196.R;
+import org.tylery.c196.activities.CourseActivity;
 import org.tylery.c196.entities.CourseEntity;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
         CourseEntity currentCourse = courses.get(position);
         holder.textViewCourseTitle.setText(currentCourse.getTitle());
         holder.textViewCourseEndDate.setText(currentCourse.getEndDate());
-        holder.textViewStatus.setText(currentCourse.getStatus());
+        holder.textViewStatus.setText(CourseActivity.getStatus(currentCourse.getStatus()));
     }
 
     @Override
