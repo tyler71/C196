@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.tylery.c196.R;
 
 public class CourseActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class CourseActivity extends AppCompatActivity {
             "org.tylery.c196.activities.COURSE_MENTOR_PHONE";
     public static final String EXTRA_COURSE_MENTOR_EMAIL =
             "org.tylery.c196.activities.COURSE_MENTOR_EMAIL";
+
+    public static final int EDIT_COURSE_REQUEST = 5;
 
     private int courseID;
     private TextView textViewTitle;
@@ -70,5 +74,20 @@ public class CourseActivity extends AppCompatActivity {
         } else {
             imageViewAlarm.setVisibility(View.INVISIBLE);
         }
+
+        FloatingActionButton buttonEditCourse = findViewById(R.id.btn_edit_course);
+        buttonEditCourse.setOnClickListener(v -> {
+            Intent editCourseIntent = new Intent(CourseActivity.this, AddEditCourseActivity.class);
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ID, courseID);
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE, parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE, parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE, parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, parentIntent.getStringExtra(EXTRA_COURSE_STATUS));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL, parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
+            editCourseIntent.putExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, alarmEnabled);
+            startActivityForResult(editCourseIntent, EDIT_COURSE_REQUEST);
+        });
     }
 }

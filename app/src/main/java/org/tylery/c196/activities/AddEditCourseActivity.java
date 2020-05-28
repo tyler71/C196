@@ -61,7 +61,9 @@ public class AddEditCourseActivity extends AppCompatActivity {
             editTextTitle.setText(intent.getStringExtra(EXTRA_COURSE_TITLE));
             editTextStartDate.setText(intent.getStringExtra(EXTRA_COURSE_START_DATE));
             editTextEndDate.setText(intent.getStringExtra(EXTRA_COURSE_END_DATE));
-            editCheckboxCourseAlarm.setActivated(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false));
+//            editCheckboxCourseAlarm.setActivated(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false));
+            if(intent.getBooleanExtra(EXTRA_COURSE_ALERT, false))
+                editCheckboxCourseAlarm.performClick();
 //            Should be passed ID of the correct radio button
             editRadioStatus.check(intent.getIntExtra(EXTRA_COURSE_STATUS, -1));
             editTextCourseMentorName.setText(intent.getStringExtra(EXTRA_COURSE_MENTOR_NAME));
