@@ -1,11 +1,15 @@
 package org.tylery.c196.activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -155,6 +159,27 @@ public class CourseActivity extends AppCompatActivity {
 
         } else {
             Toast.makeText(this, "Course not updated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.detailed_course, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.detailed_course_menu_notes:
+                Intent loadCourseNotesIntent = new Intent();
+                loadCourseNotesIntent.putExtra(.EXTRA_COURSE_ID, courseID);
+                break;
+            case R.id.detailed_course_menu_assessments:
+                break;
+            default:
+                return super.onOptionsItemSelected(item)
         }
     }
 

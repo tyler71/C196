@@ -34,6 +34,9 @@
             android:parentActivityName=".activities.CourseListActivity"/>
         <activity android:name=".activities.AddEditCourseActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".activities.CourseNotesListActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.CourseActivity"/>
     </application>
 
 </manifest>
