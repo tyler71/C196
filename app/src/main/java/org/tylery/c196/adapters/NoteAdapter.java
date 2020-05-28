@@ -38,7 +38,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         return notes.size();
     }
 
-    public void setCourses(List<NoteEntity> notes) {
+    public void setNotes(List<NoteEntity> notes) {
         this.notes = notes;
         notifyDataSetChanged();
     }
