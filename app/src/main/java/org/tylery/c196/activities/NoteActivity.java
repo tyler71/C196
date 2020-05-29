@@ -27,12 +27,13 @@ public class NoteActivity extends AppCompatActivity {
     public static final String EXTRA_NOTE_CONTENT =
             "org.tylery.c196.activities.NOTE_CONTENT";
 
+//    TODO Move to AddEditNote
     public static final int EDIT_NOTE_REQUEST = 2;
 
     private NoteViewModel noteViewModel;
 
-    private int noteID;
     private int courseID;
+    private int noteID;
     private TextView textViewTitle;
     private TextView textViewContent;
 
