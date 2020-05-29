@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.tylery.c196.R;
 import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.viewmodel.CourseViewModel;
-import org.tylery.c196.viewmodel.TermViewModel;
 
 public class CourseActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_TERM_ID =
@@ -55,6 +54,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private int termID;
     private int courseID;
+    private String courseTitle;
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
@@ -85,9 +85,10 @@ public class CourseActivity extends AppCompatActivity {
         termID = parentIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
         courseID = parentIntent.getIntExtra(EXTRA_COURSE_ID, -1);
 
-        setTitle("Course " + courseID);
+        setTitle(parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
 
-        textViewTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_TITLE));
+        this.courseTitle = parentIntent.getStringExtra(EXTRA_COURSE_TITLE);
+        textViewTitle.setText(courseTitle);
         textViewStartDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_START_DATE));
         textViewEndDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_END_DATE));
         status = parentIntent.getIntExtra(EXTRA_COURSE_STATUS, -1);
@@ -178,6 +179,7 @@ public class CourseActivity extends AppCompatActivity {
             case R.id.detailed_course_menu_notes:
                 Intent loadCourseNotes = new Intent(CourseActivity.this, CourseNotesListActivity.class);
                 loadCourseNotes.putExtra(CourseNotesListActivity.EXTRA_COURSE_ID, courseID);
+                loadCourseNotes.putExtra(CourseNotesListActivity.EXTRA_COURSE_TITLE, courseTitle);
                 startActivity(loadCourseNotes);
 //                saveNote();
                 return true;

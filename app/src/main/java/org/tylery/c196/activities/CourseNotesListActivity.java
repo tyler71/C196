@@ -21,9 +21,11 @@ public class CourseNotesListActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
 
-    public static final String EXTRA_COURSE_ID = "org.tylery.c196.activities.courseID";
+    public static final String EXTRA_COURSE_ID = "org.tylery.c196.activities.COURSE_ID";
+    public static final String EXTRA_COURSE_TITLE = "org.tylery.c196.activities.COURSE_TITLE";
 
     private int courseID;
+    private String courseTitle;
 
     private NoteViewModel noteViewModel;
 
@@ -34,8 +36,9 @@ public class CourseNotesListActivity extends AppCompatActivity {
 
         Intent loadNoteListIntent = getIntent();
         courseID = loadNoteListIntent.getIntExtra(EXTRA_COURSE_ID, -1);
-        
-        setTitle("Course " + courseID + " Notes");
+        courseTitle = loadNoteListIntent.getStringExtra(EXTRA_COURSE_TITLE);
+
+        setTitle(courseTitle + " Notes");
 
         RecyclerView recyclerView = findViewById(R.id.noteListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -61,5 +64,16 @@ public class CourseNotesListActivity extends AppCompatActivity {
 
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(noteEntity -> {
+            Intent loadNoteIntent = new Intent(CourseNotesListActivity.this, NoteActivity.class);
+            loadNoteIntent.putExtra(NoteActivity.EXTRA_NOTE_ID, noteEntity.getId());
+            loadNoteIntent.putExtra(NoteActivity.EXTRA_NOTE_COURSE_ID, noteEntity.getCourseID());
+            loadNoteIntent.putExtra(NoteActivity.EXTRA_NOTE_COURSE_TITLE, courseTitle);
+            loadNoteIntent.putExtra(NoteActivity.EXTRA_NOTE_TITLE, noteEntity.getName());
+            loadNoteIntent.putExtra(NoteActivity.EXTRA_NOTE_CONTENT, noteEntity.getContent());
+            startActivity(loadNoteIntent);
+        });
+
     }
 }

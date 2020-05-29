@@ -50,16 +50,16 @@ public class TermActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         termID = intent.getIntExtra(EXTRA_ID, -1);
-
-        setTitle("Term " + termID);
-
         textViewTitle.setText(intent.getStringExtra(EXTRA_TITLE));
         textViewStartDate.setText(intent.getStringExtra(EXTRA_START_DATE));
         textViewEndDate.setText(intent.getStringExtra(EXTRA_END_DATE));
 
+        setTitle(intent.getStringExtra(EXTRA_TITLE));
+
         courseListButton.setOnClickListener(v -> {
             Intent loadCourseListIntent = new Intent(TermActivity.this, CourseListActivity.class);
             loadCourseListIntent.putExtra(CourseListActivity.EXTRA_COURSE_TERM_ID, termID);
+            loadCourseListIntent.putExtra(CourseListActivity.EXTRA_COURSE_TERM_TITLE, intent.getStringExtra(EXTRA_TITLE));
             startActivity(loadCourseListIntent);
         });
 
@@ -74,6 +74,8 @@ public class TermActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

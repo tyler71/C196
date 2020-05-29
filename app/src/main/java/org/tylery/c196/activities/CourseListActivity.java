@@ -18,9 +18,11 @@ import org.tylery.c196.entities.CourseEntity;
 import org.tylery.c196.viewmodel.CourseViewModel;
 
 public class CourseListActivity extends AppCompatActivity {
-    public static final String EXTRA_COURSE_TERM_ID = "org.tylery.c196.activities.termID";
+    public static final String EXTRA_COURSE_TERM_ID = "org.tylery.c196.activities.TERM_ID";
+    public static final String EXTRA_COURSE_TERM_TITLE = "org.tylery.c196.activities.TERM_TITLE";
 
     private int termID;
+    private String termTitle;
 
     private CourseViewModel courseViewModel;
 
@@ -31,7 +33,8 @@ public class CourseListActivity extends AppCompatActivity {
 
         Intent loadCourseListIntent = getIntent();
         termID = loadCourseListIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
-        setTitle("Term " + termID + " Courses");
+        termTitle = loadCourseListIntent.getStringExtra(EXTRA_COURSE_TERM_TITLE);
+        setTitle("Term " + termTitle + " Courses");
 
         RecyclerView recyclerView = findViewById(R.id.courseListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
