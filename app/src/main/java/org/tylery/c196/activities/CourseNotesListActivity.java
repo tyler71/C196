@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.tylery.c196.R;
 import org.tylery.c196.adapters.NoteAdapter;
 import org.tylery.c196.entities.NoteEntity;
@@ -33,6 +35,12 @@ public class CourseNotesListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+
+        FloatingActionButton buttonAddNote = findViewById(R.id.btn_add_note);
+        buttonAddNote.setOnClickListener(v -> {
+            Intent addNoteIntent = new Intent(CourseNotesListActivity.this, AddEditNoteActivity.class);
+            startActivityForResult(addNoteIntent, ADD_NOTE_REQUEST);
+        });
 
         Intent loadNoteListIntent = getIntent();
         courseID = loadNoteListIntent.getIntExtra(EXTRA_COURSE_ID, -1);
@@ -75,5 +83,24 @@ public class CourseNotesListActivity extends AppCompatActivity {
             startActivity(loadNoteIntent);
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK) {
+//            TODO
+//              Likely convert these to UTC datetime
+            int courseID = getIntent().getIntExtra(EXTRA_COURSE_ID, -1);
+            int noteID = data.getIntExtra(AddEditNoteActivity.EXTRA_NOTE_ID, -1);
+            String noteName = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_TITLE);
+            String noteContent = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_CONTENT);
+
+            NoteEntity noteEntity = new NoteEntity(courseID, noteName, noteContent);
+            noteViewModel.insert(noteEntity);
+
+            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Note not added", Toast.LENGTH_SHORT).show();
+        }
     }
 }
