@@ -34,7 +34,7 @@ public class CourseNotesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes_list);
+        setContentView(R.layout.activity_course_notes_list);
 
         FloatingActionButton buttonAddNote = findViewById(R.id.btn_add_note);
         buttonAddNote.setOnClickListener(v -> {
