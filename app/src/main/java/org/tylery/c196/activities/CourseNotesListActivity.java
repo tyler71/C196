@@ -21,7 +21,6 @@ import org.tylery.c196.viewmodel.NoteViewModel;
 
 public class CourseNotesListActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
-    public static final int EDIT_NOTE_REQUEST = 2;
 
     public static final String EXTRA_COURSE_ID = "org.tylery.c196.activities.COURSE_ID";
     public static final String EXTRA_COURSE_TITLE = "org.tylery.c196.activities.COURSE_TITLE";
@@ -91,10 +90,10 @@ public class CourseNotesListActivity extends AppCompatActivity {
 //            TODO
 //              Likely convert these to UTC datetime
             int courseID = getIntent().getIntExtra(EXTRA_COURSE_ID, -1);
-            int noteID = data.getIntExtra(AddEditNoteActivity.EXTRA_NOTE_ID, -1);
             String noteName = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_TITLE);
             String noteContent = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_CONTENT);
 
+            if(courseID == -1) throw new AssertionError("courseID cannot be -1");
             NoteEntity noteEntity = new NoteEntity(courseID, noteName, noteContent);
             noteViewModel.insert(noteEntity);
 

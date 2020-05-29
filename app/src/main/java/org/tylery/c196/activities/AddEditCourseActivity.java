@@ -35,6 +35,9 @@ public class AddEditCourseActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_MENTOR_EMAIL =
             "org.tylery.c196.activities.COURSE_MENTOR_EMAIL";
 
+    public static final int REQUEST_ADD_COURSE = 1;
+    public static final int REQUEST_EDIT_COURSE = 2;
+
     private EditText editTextTitle;
     private EditText editTextStartDate;
     private EditText editTextEndDate;

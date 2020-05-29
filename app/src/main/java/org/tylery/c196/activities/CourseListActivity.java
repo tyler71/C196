@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.tylery.c196.R;
 import org.tylery.c196.adapters.CourseAdapter;
 import org.tylery.c196.entities.CourseEntity;
@@ -31,10 +33,16 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_list);
 
+        FloatingActionButton buttonAddCourse = findViewById(R.id.btn_add_course);
+        buttonAddCourse.setOnClickListener(v -> {
+            Intent addCourseIntent = new Intent(CourseListActivity.this, AddEditCourseActivity.class);
+            startActivityForResult(addCourseIntent, AddEditCourseActivity.REQUEST_ADD_COURSE);
+        });
+
         Intent loadCourseListIntent = getIntent();
         termID = loadCourseListIntent.getIntExtra(EXTRA_COURSE_TERM_ID, -1);
         termTitle = loadCourseListIntent.getStringExtra(EXTRA_COURSE_TERM_TITLE);
-        setTitle("Term " + termTitle + " Courses");
+        setTitle(termTitle + " Courses");
 
         RecyclerView recyclerView = findViewById(R.id.courseListView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,5 +82,30 @@ public class CourseListActivity extends AppCompatActivity {
             intent.putExtra(CourseActivity.EXTRA_COURSE_MENTOR_PHONE, courseEntity.getMentorPhone());
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AddEditCourseActivity.REQUEST_ADD_COURSE && resultCode == RESULT_OK) {
+            int termID = getIntent().getIntExtra(EXTRA_COURSE_TERM_ID, -1);
+            String title = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE);
+            String startdate = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE);
+            String endDate = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_END_DATE);
+            boolean courseAlert = data.getBooleanExtra(AddEditCourseActivity.EXTRA_COURSE_ALERT, false);
+            int status = data.getIntExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, -1);
+            String mentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_NAME);
+            String mentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE);
+            String mentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL);
+
+            if(termID == -1) throw new AssertionError("termID cannot be -1");
+            CourseEntity courseEntity = new CourseEntity(termID, title, startdate, endDate, courseAlert,
+                    status, mentorName, mentorPhone, mentorEmail);
+            courseViewModel.insert(courseEntity);
+
+            Toast.makeText(this, title + " added", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Course not added", Toast.LENGTH_SHORT).show();
+        }
     }
 }
