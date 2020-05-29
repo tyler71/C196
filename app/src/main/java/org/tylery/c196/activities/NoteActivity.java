@@ -54,7 +54,7 @@ public class NoteActivity extends AppCompatActivity {
 
         setTitle(courseTitle + " | " + noteTitle);
 
-        textViewTitle.setText(parentIntent.getStringExtra(EXTRA_NOTE_TITLE));
+        textViewTitle.setText(noteTitle);
         textViewContent.setText(parentIntent.getStringExtra(EXTRA_NOTE_CONTENT));
 
         FloatingActionButton buttonEditNote = findViewById(R.id.btn_edit_note);

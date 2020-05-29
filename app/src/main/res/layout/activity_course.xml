@@ -7,7 +7,7 @@
     tools:context=".activities.CourseActivity">
 
     <TextView
-        android:id="@+id/detailed_assessment_title"
+        android:id="@+id/detailed_course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/detailed_assessment_due_date"
+        android:id="@+id/detailed_course_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/detailed_assessment_end_date"
+        android:id="@+id/detailed_course_end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/detailedAssessmentTextView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/detailed_course_title" />
 
     <TextView
-        android:id="@+id/detailed_assessment_textView2"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -137,7 +137,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageView
-        android:id="@+id/detailed_assessment_image_alarm"
+        android:id="@+id/detailed_image_alarm"
         android:layout_width="50dp"
         android:layout_height="47dp"
         android:visibility="visible"

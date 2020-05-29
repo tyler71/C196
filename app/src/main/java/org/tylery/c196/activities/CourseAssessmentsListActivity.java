@@ -36,8 +36,8 @@ public class CourseAssessmentsListActivity extends AppCompatActivity {
 
         FloatingActionButton buttonAddAssessment = findViewById(R.id.btn_add_assessment);
         buttonAddAssessment.setOnClickListener(v -> {
-            Intent addAssessmentIntent = new Intent(CourseAssessmentsListActivity.this, AddEditAssessmentActivity.class);
-            startActivityForResult(addAssessmentIntent, ADD_ASSESSMENT_REQUEST);
+//            Intent addAssessmentIntent = new Intent(CourseAssessmentsListActivity.this, AddEditAssessmentActivity.class);
+//            startActivityForResult(addAssessmentIntent, ADD_ASSESSMENT_REQUEST);
         });
 
         Intent loadAssessmentsListIntent = getIntent();
@@ -72,12 +72,13 @@ public class CourseAssessmentsListActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(assessmentEntity -> {
             Intent loadAssessmentIntent = new Intent(CourseAssessmentsListActivity.this, AssessmentActivity.class);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_);
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_COURSE_ID, courseID);
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_COURSE_TITLE, courseTitle);
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_ID, assessmentEntity.getId());
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TITLE, assessmentEntity.getName());
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_DUE_DATE, assessmentEntity.getGoalDate());
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_ALARM, assessmentEntity.isAlert());
+            startActivity(loadAssessmentIntent);
         });
 
 

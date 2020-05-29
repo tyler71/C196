@@ -38,6 +38,15 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
       return assessments.size();
    }
 
+   public void setAssessments(List<AssessmentEntity> assessments) {
+      this.assessments = assessments;
+      notifyDataSetChanged();
+   }
+
+   public AssessmentEntity getAssessmentAt(int position) {
+      return assessments.get(position);
+   }
+
    class AssessmentHolder extends RecyclerView.ViewHolder {
       private TextView textViewAssessmentTitle;
       private TextView textViewAssessmentGoalDate;
