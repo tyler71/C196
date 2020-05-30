@@ -61,6 +61,7 @@ public class NoteActivity extends AppCompatActivity {
         buttonEditNote.setOnClickListener(v -> {
             Intent editNoteIntent = new Intent(NoteActivity.this, AddEditNoteActivity.class);
             editNoteIntent.putExtra(AddEditNoteActivity.EXTRA_NOTE_ID, noteID);
+            editNoteIntent.putExtra(AddEditNoteActivity.EXTRA_COURSE_ID, courseID);
             editNoteIntent.putExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_TITLE, noteTitle);
             editNoteIntent.putExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_CONTENT, textViewContent.getText().toString());
             startActivityForResult(editNoteIntent, EDIT_NOTE_REQUEST);
