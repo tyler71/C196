@@ -89,13 +89,11 @@ public class CourseAssessmentsListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ADD_ASSESSMENT_REQUEST && resultCode == RESULT_OK) {
             int courseID = getIntent().getIntExtra(EXTRA_COURSE_ID, -1);
-            int assessmentID = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_ID, -1);
             String assessmentName = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE);
             int assessmentType = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, -1);
             String assessmentGoalDate = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE);
             boolean assessmentAlertEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, false);
 
-            if(assessmentID == -1) throw new AssertionError("assessmentID cannot be -1");
             AssessmentEntity assessmentEntity = new AssessmentEntity(courseID,
                     assessmentName, assessmentType, assessmentGoalDate, assessmentAlertEnabled);
 

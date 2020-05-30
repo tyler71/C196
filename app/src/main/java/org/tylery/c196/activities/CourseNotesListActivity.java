@@ -93,7 +93,7 @@ public class CourseNotesListActivity extends AppCompatActivity {
             String noteName = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_TITLE);
             String noteContent = data.getStringExtra(AddEditNoteActivity.EXTRA_COURSE_NOTE_CONTENT);
 
-            if(courseID == -1) throw new AssertionError("courseID cannot be -1");
+            if(courseID == -1) throw new AssertionError("CourseNotesListActivity | courseID cannot be -1");
             NoteEntity noteEntity = new NoteEntity(courseID, noteName, noteContent);
             noteViewModel.insert(noteEntity);
 

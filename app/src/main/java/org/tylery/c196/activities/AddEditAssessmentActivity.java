@@ -77,12 +77,12 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 
         Intent data = new Intent();
         data.putExtra(EXTRA_COURSE_ASSESSMENT_TITLE, assessmentTitle);
-        data.putExtra(EXTRA_ASSESSMENT_TYPE, getTypeBtnID(editRadioGroupType.getCheckedRadioButtonId()));
+        data.putExtra(EXTRA_ASSESSMENT_TYPE, getRadioType(editRadioGroupType.getCheckedRadioButtonId()));
         data.putExtra(EXTRA_COURSE_ASSESSMENT_GOAL_DATE, assessmentGoalDate);
         data.putExtra(EXTRA_COURSE_ASSESSMENT_ALERT, alarmEnabled);
         assessmentID = getIntent().getIntExtra(EXTRA_ASSESSMENT_ID, -1);
         if(assessmentID != -1)
-            data.putExtra(EXTRA_COURSE_ID, assessmentID);
+            data.putExtra(EXTRA_ASSESSMENT_ID, assessmentID);
 
         setResult(RESULT_OK, data);
         finish();
