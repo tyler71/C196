@@ -20,11 +20,11 @@ public class AssessmentEntity extends GenericEntity {
     private int courseID;
 
     private String name;
-    private String type;
+    private int type;
     private String goalDate;
     private boolean alert;
 
-    public AssessmentEntity(int courseID, String name, String type, String goalDate, boolean alert) {
+    public AssessmentEntity(int courseID, String name, int type, String goalDate, boolean alert) {
         this.courseID = courseID;
         this.name = name;
         this.type = type;
@@ -56,11 +56,11 @@ public class AssessmentEntity extends GenericEntity {
         this.name = name;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

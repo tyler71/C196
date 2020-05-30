@@ -78,6 +78,7 @@ public class CourseAssessmentsListActivity extends AppCompatActivity {
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TITLE, assessmentEntity.getName());
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_DUE_DATE, assessmentEntity.getGoalDate());
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_ALARM, assessmentEntity.isAlert());
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TYPE, assessmentEntity.getType());
             startActivity(loadAssessmentIntent);
         });
 

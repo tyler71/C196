@@ -8,6 +8,25 @@
 
 
     <TextView
+        android:id="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailed_assessment_title" />
+
+    <TextView
+        android:id="@+id/detailed_assessment_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="PA"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW"
+        app:layout_constraintStart_toEndOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW" />
+
+    <TextView
         android:id="@+id/detailed_assessment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,28 +42,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/detailedAssessmentTextView"
-        app:layout_constraintStart_toEndOf="@+id/detailedAssessmentTextView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/detailed_assessment_uSHIA1cSYGko4yerP0kAGwzZEo6aZLa484atlOOn"
+        app:layout_constraintStart_toEndOf="@+id/detailed_assessment_uSHIA1cSYGko4yerP0kAGwzZEo6aZLa484atlOOn" />
 
     <TextView
-        android:id="@+id/detailedAssessmentTextView"
+        android:id="@+id/detailed_assessment_uSHIA1cSYGko4yerP0kAGwzZEo6aZLa484atlOOn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Due Date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailed_assessment_title" />
+        app:layout_constraintStart_toStartOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW"
+        app:layout_constraintTop_toBottomOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW" />
 
     <ImageView
         android:id="@+id/detailed_assessment_image_alarm"
         android:layout_width="50dp"
         android:layout_height="47dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/detailedAssessmentTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/detailed_assessment_uSHIA1cSYGko4yerP0kAGwzZEo6aZLa484atlOOn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/detailed_assessment_due_date"
-        app:layout_constraintTop_toTopOf="@+id/detailedAssessmentTextView"
+        app:layout_constraintTop_toTopOf="@+id/detailed_assessment_uSHIA1cSYGko4yerP0kAGwzZEo6aZLa484atlOOn"
         app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

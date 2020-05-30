@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.tylery.c196.R;
@@ -25,6 +26,8 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             "org.tylery.c196.activities.COURSE_ASSESSMENT_GOAL_DATE";
     public static final String EXTRA_COURSE_ASSESSMENT_ALERT =
             "org.tylery.c196.activities.COURSE_ASSESSMENT_ALERT";
+    public static final String EXTRA_ASSESSMENT_TYPE =
+            "org.tylery.c196.activities.ASSESSMENT_TYPE";
 
     public static final int EDIT_ASSESSMENT_REQUEST = 2;
 
@@ -100,5 +103,35 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    private int getTypeBtnID(int id) {
+        int btn_id;
+        switch (id) {
+            case AssessmentActivity.TYPE_PA:
+                btn_id = R.id.radio_course_status_planned;
+                break;
+            case AssessmentActivity.TYPE_OA:
+                btn_id = R.id.radio_course_status_dropped;
+                break;
+            default:
+                btn_id = -1;
+        }
+        return btn_id;
+    }
+
+    private int getRadioType(int btnID) {
+        int typeID;
+        switch (btnID) {
+            case R.id.radio_course_status_planned:
+                typeID = AssessmentActivity.TYPE_PA;
+                break;
+            case R.id.radio_course_status_dropped:
+                typeID = AssessmentActivity.TYPE_OA;
+                break;
+            default:
+                typeID = -1;
+        }
+        return typeID;
     }
 }
