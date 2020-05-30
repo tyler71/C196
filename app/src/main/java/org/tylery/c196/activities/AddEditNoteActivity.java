@@ -23,7 +23,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_NOTE_CONTENT =
             "org.tylery.c196.activities.COURSE_NOTE_CONTENT";
 
-    private int courseID;
     private EditText editTextTitle;
     private EditText editTextContent;
 
@@ -38,7 +37,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
 
         Intent parentIntent = getIntent();
-        courseID = parentIntent.getIntExtra(EXTRA_COURSE_ID, -1);
         if(parentIntent.hasExtra(EXTRA_NOTE_ID)) {
             setTitle("Edit Note");
             editTextTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_NOTE_TITLE));
@@ -62,7 +60,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_COURSE_NOTE_TITLE, noteTitle);
         data.putExtra(EXTRA_COURSE_NOTE_CONTENT, noteContent);
         int noteID = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
-        if(courseID != -1) {
+        if(noteID != -1) {
             data.putExtra(EXTRA_NOTE_ID, noteID);
         }
 

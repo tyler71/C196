@@ -1,9 +1,13 @@
 package org.tylery.c196.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +18,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     public static final String EXTRA_ASSESSMENT_ID =
             "org.tylery.c196.activities.COURSE_ASSESSMENT_ID";
     public static final String EXTRA_COURSE_ID =
-            "org.tylery.c196.activities.COURSE_COURSE_ID";
+            "org.tylery.c196.activities.COURSE__ID";
     public static final String EXTRA_COURSE_ASSESSMENT_TITLE =
             "org.tylery.c196.activities.COURSE_ASSESSMENT_TITLE";
     public static final String EXTRA_COURSE_ASSESSMENT_GOAL_DATE =
@@ -22,7 +26,9 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_ASSESSMENT_ALERT =
             "org.tylery.c196.activities.COURSE_ASSESSMENT_ALERT";
 
-    private int courseID;
+    public static final int EDIT_ASSESSMENT_REQUEST = 2;
+
+    private int assessmentID;
     private EditText editTextTitle;
     private EditText editTextGoalDate;
     private CheckBox editCheckboxAlarmEnabled;
@@ -39,7 +45,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
 
         Intent parentIntent = getIntent();
-        parentIntent.getIntExtra()
         if(parentIntent.hasExtra(EXTRA_ASSESSMENT_ID)) {
             setTitle("Edit Assessment");
             editTextTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_ASSESSMENT_TITLE));
@@ -67,6 +72,33 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         data.putExtra(EXTRA_COURSE_ASSESSMENT_TITLE, assessmentTitle);
         data.putExtra(EXTRA_COURSE_ASSESSMENT_GOAL_DATE, assessmentGoalDate);
         data.putExtra(EXTRA_COURSE_ASSESSMENT_ALERT, alarmEnabled);
-        int course
+        assessmentID = getIntent().getIntExtra(EXTRA_ASSESSMENT_ID, -1);
+        if(assessmentID != -1)
+            data.putExtra(EXTRA_COURSE_ID, assessmentID);
+
+        setResult(RESULT_OK, data);
+        finish();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.add_edit, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add_edit_save:
+                saveAssessment();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

@@ -1,18 +1,18 @@
 package org.tylery.c196.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
-import org.tylery.c196.adapters.AssessmentAdapter;
+import org.tylery.c196.entities.AssessmentEntity;
 import org.tylery.c196.viewmodel.AssessmentViewModel;
 
 public class AssessmentActivity extends AppCompatActivity {
@@ -28,9 +28,6 @@ public class AssessmentActivity extends AppCompatActivity {
             "org.tylery.c196.activities.ASSESSMENT_DUE_DATE";
     public static final String EXTRA_ASSESSMENT_ALARM =
             "org.tylery.c196.activities.ASSESSMENT_ALARM";
-
-//    TODO Move to AddEditAssessment
-//    public static final int EDIT_NOTE_REQUEST = 2;
 
     private AssessmentViewModel assessmentViewModel;
 
@@ -61,12 +58,32 @@ public class AssessmentActivity extends AppCompatActivity {
 
         FloatingActionButton buttonEditAssessment = findViewById(R.id.btn_edit_assessment);
         buttonEditAssessment.setOnClickListener(v -> {
-//            Intent editAssessmentIntent = new Intent(AssessmentActivity.this, AddEDitAssessmentActivity.class);
-//            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_);
-//            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_);
-//            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_);
-//            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_);
-//            startActivityForResult(editAssessmentIntent, AddEditAssessmentActivity.EDIT_NOTE_REQUEST);
+            Intent editAssessmentIntent = new Intent(AssessmentActivity.this, AddEditAssessmentActivity.class);
+            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_ID, assessmentID);
+            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, courseID);
+            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE, assessmentTitle);
+            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE, parentIntent.getStringExtra(EXTRA_ASSESSMENT_DUE_DATE));
+            editAssessmentIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, parentIntent.getBooleanExtra(EXTRA_ASSESSMENT_ALARM, false));
+            startActivityForResult(editAssessmentIntent, AddEditAssessmentActivity.EDIT_ASSESSMENT_REQUEST);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AddEditAssessmentActivity.EDIT_ASSESSMENT_REQUEST && resultCode == RESULT_OK) {
+            int assessmentID = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_ID, -1);
+            String assessmentName = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE);
+            String assessmentGoalDate = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE);
+            boolean assessmentAlertEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, false);
+
+            if( assessmentID == -1) {
+                Toast.makeText(this, "Error, assessment not saved", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            AssessmentEntity assessmentEntity = new AssessmentEntity(courseID,
+                    assessmentName, assessmentGoalDate, as)
+        }
     }
 }

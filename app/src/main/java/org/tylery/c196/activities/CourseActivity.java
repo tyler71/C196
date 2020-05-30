@@ -181,13 +181,12 @@ public class CourseActivity extends AppCompatActivity {
                 loadCourseNotes.putExtra(CourseNotesListActivity.EXTRA_COURSE_ID, courseID);
                 loadCourseNotes.putExtra(CourseNotesListActivity.EXTRA_COURSE_TITLE, courseTitle);
                 startActivity(loadCourseNotes);
-//                saveNote();
                 return true;
-//                TODO assessments menu
             case R.id.detailed_course_menu_assessments:
-//                Intent loadCourseItem = new Intent();
-//                loadCourseItem.putExtra(CourseAssessmentsListActivity.EXTRA_COURSE_ID, courseID);
-//                startActivity(loadCourseItem);
+                Intent loadCourseAssessments = new Intent(CourseActivity.this, CourseAssessmentsListActivity.class);
+                loadCourseAssessments.putExtra(CourseAssessmentsListActivity.EXTRA_COURSE_ID, courseID);
+                loadCourseAssessments.putExtra(CourseAssessmentsListActivity.EXTRA_COURSE_TITLE, courseTitle);
+                startActivity(loadCourseAssessments);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
