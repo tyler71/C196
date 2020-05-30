@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,7 @@ public class AssessmentActivity extends AppCompatActivity {
     private TextView textViewTitle;
     private TextView textViewDueDate;
     private TextView textViewType;
+    private ImageView imageViewAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,18 @@ public class AssessmentActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.detailed_assessment_due_date);
         textViewDueDate = findViewById(R.id.detailed_assessment_due_date);
         textViewType = findViewById(R.id.detailed_assessment_type);
+        imageViewAlarm = findViewById(R.id.detailed_assessment_image_alarm);
 
         Intent parentIntent = getIntent();
         courseID = parentIntent.getIntExtra(EXTRA_ASSESSMENT_COURSE_ID, -1);
         assessmentID = parentIntent.getIntExtra(EXTRA_ASSESSMENT_ID, -1);
         courseTitle = parentIntent.getStringExtra(EXTRA_ASSESSMENT_COURSE_TITLE);
         String assessmentTitle = parentIntent.getStringExtra(EXTRA_ASSESSMENT_TITLE);
+        if(parentIntent.getBooleanExtra(EXTRA_ASSESSMENT_ALARM, false)) {
+            imageViewAlarm.setVisibility(View.VISIBLE);
+        } else {
+            imageViewAlarm.setVisibility(View.INVISIBLE);
+        }
 
         setTitle(courseTitle + " | " + assessmentTitle);
 

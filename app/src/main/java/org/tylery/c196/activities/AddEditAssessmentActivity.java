@@ -66,7 +66,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private void saveAssessment() {
         String assessmentTitle = editTextTitle.getText().toString();
         String assessmentGoalDate = editTextGoalDate.getText().toString();
-        boolean alarmEnabled = editCheckboxAlarmEnabled.isEnabled();
+        boolean alarmEnabled = editCheckboxAlarmEnabled.isChecked();
 
         if(assessmentTitle.trim().isEmpty()
             || assessmentGoalDate.trim().isEmpty()
