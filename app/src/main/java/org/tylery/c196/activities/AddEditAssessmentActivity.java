@@ -33,6 +33,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
 
     private int assessmentID;
     private EditText editTextTitle;
+    private RadioGroup editRadioGroupType;
     private EditText editTextGoalDate;
     private CheckBox editCheckboxAlarmEnabled;
 
@@ -42,6 +43,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_assessment);
 
         editTextTitle = findViewById(R.id.edit_assessment_name);
+        editRadioGroupType = findViewById(R.id.edit_assessment_radio_type);
         editTextGoalDate = findViewById(R.id.edit_assessment_goal_date);
         editCheckboxAlarmEnabled = findViewById(R.id.edit_assessment_alarm);
 
@@ -52,6 +54,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
             setTitle("Edit Assessment");
             editTextTitle.setText(parentIntent.getStringExtra(EXTRA_COURSE_ASSESSMENT_TITLE));
             editTextGoalDate.setText(parentIntent.getStringExtra(EXTRA_COURSE_ASSESSMENT_GOAL_DATE));
+            editRadioGroupType.check(getTypeBtnID(parentIntent.getIntExtra(EXTRA_ASSESSMENT_TYPE, -1)));
             if(parentIntent.getBooleanExtra(EXTRA_COURSE_ASSESSMENT_ALERT, false))
                 editCheckboxAlarmEnabled.performClick();
         } else {
@@ -66,13 +69,15 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         boolean alarmEnabled = editCheckboxAlarmEnabled.isEnabled();
 
         if(assessmentTitle.trim().isEmpty()
-            || assessmentGoalDate.trim().isEmpty()) {
+            || assessmentGoalDate.trim().isEmpty()
+            || getTypeBtnID(editRadioGroupType.getCheckedRadioButtonId()) != -1) {
             Toast.makeText(this, "Assessment not saved. Empty fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent data = new Intent();
         data.putExtra(EXTRA_COURSE_ASSESSMENT_TITLE, assessmentTitle);
+        data.putExtra(EXTRA_ASSESSMENT_TYPE, getTypeBtnID(editRadioGroupType.getCheckedRadioButtonId()));
         data.putExtra(EXTRA_COURSE_ASSESSMENT_GOAL_DATE, assessmentGoalDate);
         data.putExtra(EXTRA_COURSE_ASSESSMENT_ALERT, alarmEnabled);
         assessmentID = getIntent().getIntExtra(EXTRA_ASSESSMENT_ID, -1);
@@ -109,10 +114,10 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         int btn_id;
         switch (id) {
             case AssessmentActivity.TYPE_PA:
-                btn_id = R.id.radio_course_status_planned;
+                btn_id = R.id.radio_assessment_type_pa;
                 break;
             case AssessmentActivity.TYPE_OA:
-                btn_id = R.id.radio_course_status_dropped;
+                btn_id = R.id.radio_assessment_type_oa;
                 break;
             default:
                 btn_id = -1;
@@ -123,10 +128,10 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private int getRadioType(int btnID) {
         int typeID;
         switch (btnID) {
-            case R.id.radio_course_status_planned:
+            case R.id.radio_assessment_type_pa:
                 typeID = AssessmentActivity.TYPE_PA;
                 break;
-            case R.id.radio_course_status_dropped:
+            case R.id.radio_assessment_type_oa:
                 typeID = AssessmentActivity.TYPE_OA;
                 break;
             default:

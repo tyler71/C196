@@ -1,6 +1,7 @@
 package org.tylery.c196.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -76,12 +77,29 @@ public class CourseAssessmentsListActivity extends AppCompatActivity {
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_COURSE_TITLE, courseTitle);
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_ID, assessmentEntity.getId());
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TITLE, assessmentEntity.getName());
+            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TYPE, assessmentEntity.getType());
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_DUE_DATE, assessmentEntity.getGoalDate());
             loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_ALARM, assessmentEntity.isAlert());
-            loadAssessmentIntent.putExtra(AssessmentActivity.EXTRA_ASSESSMENT_TYPE, assessmentEntity.getType());
             startActivity(loadAssessmentIntent);
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD_ASSESSMENT_REQUEST && resultCode == RESULT_OK) {
+            int courseID = getIntent().getIntExtra(EXTRA_COURSE_ID, -1);
+            int assessmentID = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_ID, -1);
+            String assessmentName = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE);
+            int assessmentType = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, -1);
+            String assessmentGoalDate = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE);
+            boolean assessmentAlertEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, false);
 
+            if(assessmentID == -1) throw new AssertionError("assessmentID cannot be -1");
+            AssessmentEntity assessmentEntity = new AssessmentEntity(courseID,
+                    assessmentName, assessmentType, assessmentGoalDate, assessmentAlertEnabled);
+
+            assessmentViewModel.insert(assessmentEntity);
+        }
     }
 }
