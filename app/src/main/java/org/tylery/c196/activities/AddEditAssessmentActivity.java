@@ -3,17 +3,24 @@ package org.tylery.c196.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.tylery.c196.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AddEditAssessmentActivity extends AppCompatActivity {
     public static final String EXTRA_ASSESSMENT_ID =
@@ -36,6 +43,7 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
     private RadioGroup editRadioGroupType;
     private EditText editTextGoalDate;
     private CheckBox editCheckboxAlarmEnabled;
+    private Calendar setGoalDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,19 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         editCheckboxAlarmEnabled = findViewById(R.id.edit_assessment_alarm);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+
+        this.setGoalDate = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetGoal = (view, year, month, dayOfMonth) -> {
+            setGoalDate.set(Calendar.YEAR, year);
+            setGoalDate.set(Calendar.MONTH, month);
+            setGoalDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        };
+        editTextGoalDate.setOnClickListener(v -> new DatePickerDialog(AddEditAssessmentActivity.this,
+            dateSetGoal,
+            setGoalDate.get(Calendar.YEAR),
+            setGoalDate.get(Calendar.MONTH),
+            setGoalDate.get(Calendar.DAY_OF_MONTH)).show());
 
         Intent parentIntent = getIntent();
         if(parentIntent.hasExtra(EXTRA_ASSESSMENT_ID)) {
@@ -139,4 +160,12 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         }
         return typeID;
     }
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editTextGoalDate.setText(sdf.format(setGoalDate.getTime()));
+    }
+
 }

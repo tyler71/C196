@@ -52,6 +52,9 @@
         android:id="@+id/edit_assessment_goal_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:inputType="date"
         android:hint="MM/DD/YYYY"
         />
 
