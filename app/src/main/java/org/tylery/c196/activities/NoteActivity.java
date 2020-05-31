@@ -2,9 +2,13 @@ package org.tylery.c196.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -94,5 +98,32 @@ public class NoteActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Note not updated", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.share, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share_text:
+                shareText();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private void shareText() {
+        Intent shareText = new Intent(Intent.ACTION_SEND);
+        shareText.putExtra(Intent.EXTRA_TITLE, textViewTitle.getText().toString());
+        shareText.putExtra(Intent.EXTRA_TEXT, textViewContent.getText().toString());
+        shareText.setType("text/plain");
+        startActivity(shareText);
     }
 }
