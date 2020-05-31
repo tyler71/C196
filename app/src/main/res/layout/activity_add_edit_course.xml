@@ -23,8 +23,10 @@
         android:id="@+id/edit_course_start_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="MM/DD/YYYY"
+        android:clickable="true"
+        android:focusable="false"
         android:inputType="date"
+        android:hint="MM/DD/YYYY"
         />
 
     <TextView
@@ -37,8 +39,10 @@
         android:id="@+id/edit_course_end_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="MM/DD/YYYY"
+        android:clickable="true"
+        android:focusable="false"
         android:inputType="date"
+        android:hint="MM/DD/YYYY"
         />
 
     <CheckBox
