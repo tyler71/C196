@@ -3,6 +3,7 @@ package org.tylery.c196.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,10 @@ import android.widget.Toast;
 
 import org.tylery.c196.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class AddEditTermActivity extends AppCompatActivity {
     public static final String EXTRA_TERM_ID =
             "org.tylery.c196.activities.TERM_ID";
@@ -22,6 +27,11 @@ public class AddEditTermActivity extends AppCompatActivity {
             "org.tylery.c196.activities.TERM_START_DATE";
     public static final String EXTRA_TERM_END_DATE =
             "org.tylery.c196.activities.TERM_END_DATE";
+
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
+
+    private Calendar calendarStartDate;
+    private Calendar calendarEndDate;
 
     private EditText editTextTitle;
     private EditText editTextStartDate;
@@ -35,6 +45,33 @@ public class AddEditTermActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.edit_term_title);
         editTextStartDate = findViewById(R.id.edit_term_start_date);
         editTextEndDate = findViewById(R.id.edit_term_end_date);
+
+
+        this.calendarStartDate = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetStart = (view, year, month, dayOfMonth) -> {
+            calendarStartDate.set(Calendar.YEAR, year);
+            calendarStartDate.set(Calendar.MONTH, month);
+            calendarStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel(editTextStartDate, calendarStartDate);
+        };
+        editTextStartDate.setOnClickListener(v -> new DatePickerDialog(AddEditTermActivity.this,
+                dateSetStart,
+                calendarStartDate.get(Calendar.YEAR),
+                calendarStartDate.get(Calendar.MONTH),
+                calendarStartDate.get(Calendar.DAY_OF_MONTH)).show());
+
+        this.calendarEndDate = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetEnd = (view, year, month, dayOfMonth) -> {
+            calendarEndDate.set(Calendar.YEAR, year);
+            calendarEndDate.set(Calendar.MONTH, month);
+            calendarEndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel(editTextEndDate, calendarEndDate);
+        };
+        editTextEndDate.setOnClickListener(v -> new DatePickerDialog(AddEditTermActivity.this,
+                dateSetEnd,
+                calendarEndDate.get(Calendar.YEAR),
+                calendarEndDate.get(Calendar.MONTH),
+                calendarEndDate.get(Calendar.DAY_OF_MONTH)).show());
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         Intent intent = getIntent();
@@ -98,5 +135,12 @@ public class AddEditTermActivity extends AppCompatActivity {
 //        Go back to the correct previous activity page
         finish();
         return true;
+    }
+
+    private void updateLabel(EditText editText, Calendar calendar) {
+        String myFormat = DATE_FORMAT; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editText.setText(sdf.format(calendar.getTime()));
     }
 }
