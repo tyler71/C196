@@ -1,10 +1,8 @@
 package org.tylery.c196.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -49,6 +52,10 @@ public class CourseActivity extends AppCompatActivity {
     public static final int STATUS_COMPLETED = 3;
 
     public static final int EDIT_COURSE_REQUEST = 5;
+
+    private AlarmManager courseAlarmManager;
+    private PendingIntent startCourseAlarmIntent;
+    private PendingIntent endCourseAlarmIntent;
 
     private CourseViewModel courseViewModel;
 
@@ -97,7 +104,7 @@ public class CourseActivity extends AppCompatActivity {
         textViewCourseMentorPhone.setText(parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_PHONE));
         textViewCourseMentorEmail.setText(parentIntent.getStringExtra(EXTRA_COURSE_MENTOR_EMAIL));
         alarmEnabled = parentIntent.getBooleanExtra(EXTRA_COURSE_ALERT, false);
-        if(alarmEnabled) {
+        if (alarmEnabled) {
             imageViewAlarm.setVisibility(View.VISIBLE);
         } else {
             imageViewAlarm.setVisibility(View.INVISIBLE);
@@ -122,7 +129,7 @@ public class CourseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == EDIT_COURSE_REQUEST && resultCode == RESULT_OK) {
             int courseID = data.getIntExtra(AddEditCourseActivity.EXTRA_COURSE_ID, -1);
             String courseTitle = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_TITLE);
             String courseStartDate = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_START_DATE);
@@ -133,12 +140,12 @@ public class CourseActivity extends AppCompatActivity {
             String courseMentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_PHONE);
             String courseMentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_MENTOR_EMAIL);
 
-            if(courseID == -1) {
+            if (courseID == -1) {
                 Toast.makeText(this, "Error, course not saved", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if(alarmEnabled) {
+            if (alarmEnabled) {
                 imageViewAlarm.setVisibility(View.VISIBLE);
             } else {
                 imageViewAlarm.setVisibility(View.INVISIBLE);
@@ -151,6 +158,23 @@ public class CourseActivity extends AppCompatActivity {
             textViewCourseMentorName.setText(courseMentorName);
             textViewCourseMentorPhone.setText(courseMentorPhone);
             textViewCourseMentorEmail.setText(courseMentorEmail);
+
+            if (alarmEnabled) {
+                courseAlarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+                Intent startCourseAlarmIntent = new Intent(this, AlarmReceiver.class);
+                Intent endCourseAlarmIntent = new Intent(this, AlarmReceiver.class);
+                this.startCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
+                this.endCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
+                courseAlarmManager.set(AlarmManager.RTC_WAKEUP, ca, AlarmManager.INTERVAL_DAY, startCourseAlarmIntent);
+                courseAlarmManager.set(AlarmManager.RTC_WAKEUP, ca, AlarmManager.INTERVAL_DAY, endCourseAlarmIntent);
+
+
+            } else {
+                if (courseAlarmManager != null) {
+                    courseAlarmManager.cancel(startCourseAlarmIntent);
+                }
+
+            }
 
             CourseEntity courseEntity = new CourseEntity(termID,
                     courseTitle, courseStartDate, courseEndDate, alarmEnabled,
