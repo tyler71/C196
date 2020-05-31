@@ -43,6 +43,8 @@ public class AddEditCourseActivity extends AppCompatActivity {
     public static final int REQUEST_ADD_COURSE = 1;
     public static final int REQUEST_EDIT_COURSE = 2;
 
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
+
     private Calendar calendarStartDate;
     private Calendar calendarEndDate;
 
@@ -219,7 +221,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
     }
 
     private void updateLabel(EditText editText, Calendar calendar) {
-        String myFormat = "MM/dd/yyyy"; //In which you need put here
+        String myFormat = DATE_FORMAT; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         editText.setText(sdf.format(calendar.getTime()));
