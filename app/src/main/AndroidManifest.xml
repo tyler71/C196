@@ -58,6 +58,10 @@
             android:name=".alarms.CourseAlarmReceiver"
             android:enabled="true"/>
             <receiver android:name=".alarms.CourseAlarmReceiver"/>
+        <service
+            android:name=".alarms.AssessmentAlarmReceiver"
+            android:enabled="true"/>
+        <receiver android:name=".alarms.AssessmentAlarmReceiver"/>
 
     </application>
 

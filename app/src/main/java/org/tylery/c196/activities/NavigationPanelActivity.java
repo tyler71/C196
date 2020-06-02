@@ -11,7 +11,8 @@ import android.widget.Button;
 
 import org.tylery.c196.R;
 
-import static org.tylery.c196.alarms.CourseAlarmReceiver.CHANNEL_ID_ALARMS;
+import static org.tylery.c196.alarms.AssessmentAlarmReceiver.ASSESSMENT_CHANNEL_ID_ALARMS;
+import static org.tylery.c196.alarms.CourseAlarmReceiver.COURSE_CHANNEL_ID_ALARMS;
 
 public class NavigationPanelActivity extends AppCompatActivity {
     private Button viewTermListBtn;
@@ -40,12 +41,17 @@ public class NavigationPanelActivity extends AppCompatActivity {
             CharSequence name = "Course Alarms";
             String description = "When the course starts and ends";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID_ALARMS, name, importance);
-            channel.setDescription(description);
+            NotificationChannel courseNotificationChannel = new NotificationChannel(COURSE_CHANNEL_ID_ALARMS, name, importance);
+            courseNotificationChannel.setDescription(description);
+            name = "Assessment Alarms";
+            description = "When assessments start and end";
+            NotificationChannel assessmentNotificationChannel = new NotificationChannel(ASSESSMENT_CHANNEL_ID_ALARMS, name, importance);
+            assessmentNotificationChannel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            notificationManager.createNotificationChannel(courseNotificationChannel);
+            notificationManager.createNotificationChannel(assessmentNotificationChannel);
         }
     }
 
