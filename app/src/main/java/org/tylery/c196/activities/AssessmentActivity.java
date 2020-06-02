@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +16,14 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
+import org.tylery.c196.alarms.AssessmentAlarmReceiver;
 import org.tylery.c196.entities.AssessmentEntity;
 import org.tylery.c196.viewmodel.AssessmentViewModel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AssessmentActivity extends AppCompatActivity {
     public static final String EXTRA_ASSESSMENT_COURSE_ID =
@@ -34,6 +42,9 @@ public class AssessmentActivity extends AppCompatActivity {
             "org.tylery.c196.activities.ASSESSMENT_TYPE";
     public static final int TYPE_PA = 0;
     public static final int TYPE_OA = 1;
+
+    private AlarmManager assessmentAlarmManager;
+    private PendingIntent goalAssessmentAlarmIntent;
 
     private AssessmentViewModel assessmentViewModel;
 
@@ -61,7 +72,8 @@ public class AssessmentActivity extends AppCompatActivity {
         assessmentID = parentIntent.getIntExtra(EXTRA_ASSESSMENT_ID, -1);
         courseTitle = parentIntent.getStringExtra(EXTRA_ASSESSMENT_COURSE_TITLE);
         String assessmentTitle = parentIntent.getStringExtra(EXTRA_ASSESSMENT_TITLE);
-        if(parentIntent.getBooleanExtra(EXTRA_ASSESSMENT_ALARM, false)) {
+        boolean alarmEnabled = parentIntent.getBooleanExtra(EXTRA_ASSESSMENT_ALARM, false);
+        if(alarmEnabled) {
             imageViewAlarm.setVisibility(View.VISIBLE);
         } else {
             imageViewAlarm.setVisibility(View.INVISIBLE);
@@ -96,11 +108,39 @@ public class AssessmentActivity extends AppCompatActivity {
             int assessmentType = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, -1);
             String assessmentGoalDate = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE);
             boolean assessmentAlertEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, false);
+            boolean alarmEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE, false);
 
             if( assessmentID == -1
                     || assessmentType == -1) {
                 Toast.makeText(this, "Error, assessment not saved", Toast.LENGTH_SHORT).show();
                 return;
+            }
+
+            
+
+            if(alarmEnabled) {
+                assessmentAlarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+                Intent goalAssessmentAlarmIntent = new Intent(this, AssessmentAlarmReceiver.class);
+                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE, assessmentName);
+                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, assessmentType);
+                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE, assessmentGoalDate);
+                PendingIntent goalAssessmentPendingAlert = PendingIntent.getBroadcast(this, 0, goalAssessmentAlarmIntent, 0);
+
+                Calendar goalAssessmentCalendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat(AddEditAssessmentActivity.DATE_FORMAT, Locale.ENGLISH);
+                try {
+                    goalAssessmentCalendar.setTime(dateFormat.parse(assessmentGoalDate));
+                    goalAssessmentCalendar.set(Calendar.HOUR, 8);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                assessmentAlarmManager.set(AlarmManager.RTC, goalAssessmentCalendar.getTimeInMillis(), goalAssessmentPendingAlert);
+            } else {
+                if(assessmentAlarmManager != null) {
+                    assessmentAlarmManager.cancel(goalAssessmentAlarmIntent);
+                }
+
             }
 
             AssessmentEntity assessmentEntity = new AssessmentEntity(courseID,

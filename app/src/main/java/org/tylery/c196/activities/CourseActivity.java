@@ -173,8 +173,6 @@ public class CourseActivity extends AppCompatActivity {
                 Intent endCourseAlarmIntent = new Intent(this, CourseAlarmReceiver.class);
                 endCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TITLE, courseTitle + " Alert!");
                 endCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TEXT, courseTitle + " will be ending soon (" + courseEndDate + ")");
-                PendingIntent startCoursePendingIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
-                PendingIntent endCoursePendingIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
 
                 Calendar startCourseAlarmCalendar = Calendar.getInstance();
                 Calendar endCourseAlarmCalendar = Calendar.getInstance();
@@ -188,12 +186,13 @@ public class CourseActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                this.startCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
+                PendingIntent startCoursePendingIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
+                PendingIntent endCoursePendingIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
+//                this.startCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
 
-                this.endCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
+//                this.endCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
                 courseAlarmManager.set(AlarmManager.RTC, startCourseAlarmCalendar.getTimeInMillis(), startCoursePendingIntent);
                 courseAlarmManager.set(AlarmManager.RTC, endCourseAlarmCalendar.getTimeInMillis(), endCoursePendingIntent);
-                Log.d("ahhh", "onActivityResult: alarm is set?");
             } else {
                 if (courseAlarmManager != null) {
                     courseAlarmManager.cancel(startCourseAlarmIntent);
