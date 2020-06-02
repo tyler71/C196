@@ -116,7 +116,14 @@ public class AssessmentActivity extends AppCompatActivity {
                 return;
             }
 
-            
+            textViewTitle.setText(assessmentName);
+            textViewDueDate.setText(assessmentGoalDate);
+            textViewType.setText(assessmentType);
+            if (alarmEnabled) {
+                imageViewAlarm.setVisibility(View.VISIBLE);
+            } else {
+                imageViewAlarm.setVisibility(View.INVISIBLE);
+            }
 
             if(alarmEnabled) {
                 assessmentAlarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
