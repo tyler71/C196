@@ -62,7 +62,7 @@ public class AssessmentActivity extends AppCompatActivity {
         assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
         setContentView(R.layout.activity_assessment);
 
-        textViewTitle = findViewById(R.id.detailed_assessment_due_date);
+        textViewTitle = findViewById(R.id.detailed_assessment_title);
         textViewDueDate = findViewById(R.id.detailed_assessment_due_date);
         textViewType = findViewById(R.id.detailed_assessment_type);
         imageViewAlarm = findViewById(R.id.detailed_assessment_image_alarm);
@@ -108,7 +108,6 @@ public class AssessmentActivity extends AppCompatActivity {
             int assessmentType = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, -1);
             String assessmentGoalDate = data.getStringExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE);
             boolean assessmentAlertEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_ALERT, false);
-            boolean alarmEnabled = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE, false);
 
             if( assessmentID == -1
                     || assessmentType == -1) {
@@ -118,14 +117,14 @@ public class AssessmentActivity extends AppCompatActivity {
 
             textViewTitle.setText(assessmentName);
             textViewDueDate.setText(assessmentGoalDate);
-            textViewType.setText(assessmentType);
-            if (alarmEnabled) {
+            textViewType.setText(getAssessmentType(assessmentType));
+            if (assessmentAlertEnabled) {
                 imageViewAlarm.setVisibility(View.VISIBLE);
             } else {
                 imageViewAlarm.setVisibility(View.INVISIBLE);
             }
 
-            if(alarmEnabled) {
+            if(assessmentAlertEnabled) {
                 assessmentAlarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
                 Intent goalAssessmentAlarmIntent = new Intent(this, AssessmentAlarmReceiver.class);
                 goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE, assessmentName);
