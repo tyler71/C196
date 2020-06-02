@@ -2,9 +2,9 @@ package org.tylery.c196.activities;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +22,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
 import org.tylery.c196.entities.CourseEntity;
+import org.tylery.c196.alarms.CourseAlarmReceiver;
 import org.tylery.c196.viewmodel.CourseViewModel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class CourseActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_TERM_ID =
@@ -160,18 +166,38 @@ public class CourseActivity extends AppCompatActivity {
             textViewCourseMentorEmail.setText(courseMentorEmail);
 
             if (alarmEnabled) {
-                courseAlarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-                Intent startCourseAlarmIntent = new Intent(this, AlarmReceiver.class);
-                Intent endCourseAlarmIntent = new Intent(this, AlarmReceiver.class);
+                courseAlarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+                Intent startCourseAlarmIntent = new Intent(this, CourseAlarmReceiver.class);
+                startCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TITLE, courseTitle + " Alert!");
+                startCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TEXT, courseTitle + " will be starting soon (" + courseStartDate + ")");
+                Intent endCourseAlarmIntent = new Intent(this, CourseAlarmReceiver.class);
+                endCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TITLE, courseTitle + " Alert!");
+                endCourseAlarmIntent.putExtra(CourseAlarmReceiver.ALARM_NOTIFICATION_TEXT, courseTitle + " will be ending soon (" + courseEndDate + ")");
+                PendingIntent startCoursePendingIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
+                PendingIntent endCoursePendingIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
+
+                Calendar startCourseAlarmCalendar = Calendar.getInstance();
+                Calendar endCourseAlarmCalendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat(AddEditCourseActivity.DATE_FORMAT, Locale.ENGLISH);
+                try {
+                    startCourseAlarmCalendar.setTime(dateFormat.parse(courseStartDate));
+                    startCourseAlarmCalendar.set(Calendar.HOUR, 8);
+                    endCourseAlarmCalendar.setTime(dateFormat.parse(courseEndDate));
+                    endCourseAlarmCalendar.set(Calendar.HOUR, 8);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 this.startCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
+
                 this.endCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
-                courseAlarmManager.set(AlarmManager.RTC_WAKEUP, ca, AlarmManager.INTERVAL_DAY, startCourseAlarmIntent);
-                courseAlarmManager.set(AlarmManager.RTC_WAKEUP, ca, AlarmManager.INTERVAL_DAY, endCourseAlarmIntent);
-
-
+                courseAlarmManager.set(AlarmManager.RTC, startCourseAlarmCalendar.getTimeInMillis(), startCoursePendingIntent);
+                courseAlarmManager.set(AlarmManager.RTC, endCourseAlarmCalendar.getTimeInMillis(), endCoursePendingIntent);
+                Log.d("ahhh", "onActivityResult: alarm is set?");
             } else {
                 if (courseAlarmManager != null) {
                     courseAlarmManager.cancel(startCourseAlarmIntent);
+                    courseAlarmManager.cancel(endCourseAlarmIntent);
                 }
 
             }

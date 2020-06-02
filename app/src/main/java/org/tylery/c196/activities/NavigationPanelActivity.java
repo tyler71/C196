@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import org.tylery.c196.R;
 
-import static org.tylery.c196.utils.AlarmReceiver.CHANNEL_ID_ALARMS;
+import static org.tylery.c196.alarms.CourseAlarmReceiver.CHANNEL_ID_ALARMS;
 
 public class NavigationPanelActivity extends AppCompatActivity {
     private Button viewTermListBtn;
