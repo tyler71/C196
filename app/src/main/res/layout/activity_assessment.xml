@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.AssessmentActivity">
 
+    <TextView
+        android:id="@+id/detailed_assessment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Assessment Title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW"
@@ -26,15 +37,6 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW"
         app:layout_constraintStart_toEndOf="@+id/detailed_assessment_4hSRixkiKHxhodLLXzGBuiCpP9wT1OrpPGItk1BW" />
 
-    <TextView
-        android:id="@+id/detailed_assessment_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Assessment Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailed_assessment_due_date"
