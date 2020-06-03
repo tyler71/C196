@@ -66,15 +66,14 @@ public class TermListActivity extends AppCompatActivity {
                 int relatedCourses = 0;
                 try {
                     relatedCourses = courseViewModel.getTermCourses(deletedTerm.getId()).size();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
 
 
                 if(relatedCourses > 0) {
                     Toast.makeText(TermListActivity.this, "Courses still attached. Term not deleted!", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
                 } else {
                     termViewModel.delete(deletedTerm);
                     Toast.makeText(TermListActivity.this, "Term deleted", Toast.LENGTH_SHORT).show();
