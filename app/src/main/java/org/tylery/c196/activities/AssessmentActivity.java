@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.tylery.c196.R;
 import org.tylery.c196.alarms.AssessmentAlarmReceiver;
+import org.tylery.c196.alarms.CourseAlarmReceiver;
 import org.tylery.c196.entities.AssessmentEntity;
 import org.tylery.c196.viewmodel.AssessmentViewModel;
 
@@ -127,9 +128,9 @@ public class AssessmentActivity extends AppCompatActivity {
             if(assessmentAlertEnabled) {
                 assessmentAlarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
                 Intent goalAssessmentAlarmIntent = new Intent(this, AssessmentAlarmReceiver.class);
-                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_TITLE, assessmentName);
-                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_ASSESSMENT_TYPE, assessmentType);
-                goalAssessmentAlarmIntent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ASSESSMENT_GOAL_DATE, assessmentGoalDate);
+                goalAssessmentAlarmIntent.putExtra(AssessmentAlarmReceiver.ALARM_NOTIFICATION_TITLE, assessmentName);
+                goalAssessmentAlarmIntent.putExtra(AssessmentAlarmReceiver.ALARM_NOTIFICATION_ASSESSMENT_TYPE, getAssessmentType(assessmentType));
+                goalAssessmentAlarmIntent.putExtra(AssessmentAlarmReceiver.ALARM_NOTIFICATION_TEXT, assessmentGoalDate);
                 PendingIntent goalAssessmentPendingAlert = PendingIntent.getBroadcast(this, 0, goalAssessmentAlarmIntent, 0);
 
                 Calendar goalAssessmentCalendar = Calendar.getInstance();
@@ -145,6 +146,7 @@ public class AssessmentActivity extends AppCompatActivity {
             } else {
                 if(assessmentAlarmManager != null) {
                     assessmentAlarmManager.cancel(goalAssessmentAlarmIntent);
+                    goalAssessmentAlarmIntent.cancel();
                 }
 
             }

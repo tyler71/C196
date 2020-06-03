@@ -52,6 +52,10 @@ public class CourseActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_MENTOR_EMAIL =
             "org.tylery.c196.activities.COURSE_MENTOR_EMAIL";
 
+    public static final int ALARM_COURSE_START = 50;
+    public static final int ALARM_COURSE_END = 100;
+
+
     public static final int STATUS_DROPPED = 0;
     public static final int STATUS_PLANNED = 1;
     public static final int STATUS_IN_PROGRESS = 2;
@@ -60,8 +64,8 @@ public class CourseActivity extends AppCompatActivity {
     public static final int EDIT_COURSE_REQUEST = 5;
 
     private AlarmManager courseAlarmManager;
-    private PendingIntent startCourseAlarmIntent;
-    private PendingIntent endCourseAlarmIntent;
+    PendingIntent startCoursePendingIntent;
+    PendingIntent endCoursePendingIntent;
 
     private CourseViewModel courseViewModel;
 
@@ -186,17 +190,16 @@ public class CourseActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                PendingIntent startCoursePendingIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
-                PendingIntent endCoursePendingIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
-//                this.startCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, startCourseAlarmIntent, 0);
-
-//                this.endCourseAlarmIntent = PendingIntent.getBroadcast(this, 0, endCourseAlarmIntent, 0);
+                startCoursePendingIntent = PendingIntent.getBroadcast(this, ALARM_COURSE_START, startCourseAlarmIntent, 0);
+                endCoursePendingIntent = PendingIntent.getBroadcast(this, ALARM_COURSE_END, endCourseAlarmIntent, 0);
                 courseAlarmManager.set(AlarmManager.RTC, startCourseAlarmCalendar.getTimeInMillis(), startCoursePendingIntent);
                 courseAlarmManager.set(AlarmManager.RTC, endCourseAlarmCalendar.getTimeInMillis(), endCoursePendingIntent);
             } else {
                 if (courseAlarmManager != null) {
-                    courseAlarmManager.cancel(startCourseAlarmIntent);
-                    courseAlarmManager.cancel(endCourseAlarmIntent);
+                    courseAlarmManager.cancel(startCoursePendingIntent);
+                    courseAlarmManager.cancel(endCoursePendingIntent);
+                    startCoursePendingIntent.cancel();
+                    endCoursePendingIntent.cancel();
                 }
 
             }
