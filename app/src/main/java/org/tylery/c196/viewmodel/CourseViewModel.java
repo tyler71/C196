@@ -10,6 +10,7 @@ import org.tylery.c196.database.C196Repository;
 import org.tylery.c196.entities.CourseEntity;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CourseViewModel extends AndroidViewModel {
     private C196Repository repo;
@@ -29,7 +30,10 @@ public class CourseViewModel extends AndroidViewModel {
         repo.delete(courseEntity);
     }
 
-    public LiveData<List<CourseEntity>> getTermCourses(int termID) {
+    public LiveData<List<CourseEntity>> getLiveTermCourses(int termID) {
+        return repo.getLiveTermCourses(termID);
+    }
+    public List<CourseEntity> getTermCourses(int termID) throws ExecutionException, InterruptedException {
         return repo.getTermCourses(termID);
     }
 }

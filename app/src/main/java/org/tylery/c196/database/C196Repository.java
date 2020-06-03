@@ -15,6 +15,7 @@ import org.tylery.c196.entities.NoteEntity;
 import org.tylery.c196.entities.TermEntity;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class C196Repository {
     private TermDao termDao;
@@ -84,14 +85,32 @@ public class C196Repository {
         return mAllTerms;
     }
 
-    public LiveData<List<CourseEntity>> getTermCourses(int termID) {
-        return courseDao.getTermCourses(termID);
+    public LiveData<List<CourseEntity>> getLiveTermCourses(int termID) {
+        return courseDao.getLiveTermCourses(termID);
     }
+
     public LiveData<List<AssessmentEntity>> getCourseAssessments(int courseID) {
         return assessmentDao.getCourseAssessments(courseID);
     }
     public LiveData<List<NoteEntity>> getCourseNotes(int courseID) {
         return noteDao.getCourseNotes(courseID);
+    }
+
+
+    public List<CourseEntity> getTermCourses(int termID) throws ExecutionException, InterruptedException {
+        return new GetAsyncTermCourses(courseDao).execute(termID).get();
+    }
+    private static class GetAsyncTermCourses extends AsyncTask<Integer, Void, List<CourseEntity>> {
+        private CourseDao dao;
+
+        private GetAsyncTermCourses(CourseDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected List<CourseEntity> doInBackground(Integer... Integers) {
+            return dao.getTermCourses(Integers[0]);
+        }
     }
 
     private static class InsertAsyncTerm extends AsyncTask<TermEntity, Void, Void> {

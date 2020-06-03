@@ -52,7 +52,7 @@ public class CourseListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
-        courseViewModel.getTermCourses(termID).observe(this, courseEntities -> adapter.setCourses(courseEntities));
+        courseViewModel.getLiveTermCourses(termID).observe(this, courseEntities -> adapter.setCourses(courseEntities));
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override

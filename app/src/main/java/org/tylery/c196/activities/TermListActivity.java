@@ -3,6 +3,7 @@ package org.tylery.c196.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +18,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.tylery.c196.R;
 import org.tylery.c196.adapters.TermAdapter;
 import org.tylery.c196.entities.TermEntity;
+import org.tylery.c196.viewmodel.CourseViewModel;
 import org.tylery.c196.viewmodel.TermViewModel;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class TermListActivity extends AppCompatActivity {
@@ -46,7 +50,9 @@ public class TermListActivity extends AppCompatActivity {
         termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
         termViewModel.getAllTerms().observe(this, termEntities -> adapter.setTerms(termEntities));
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+        CourseViewModel courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -56,14 +62,26 @@ public class TermListActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 TermEntity deletedTerm = adapter.getTermAt(viewHolder.getAdapterPosition());
-                termViewModel.delete(deletedTerm);
-                Toast.makeText(TermListActivity.this, "Term deleted", Toast.LENGTH_SHORT).show();
-//                TODO
-//                  Some kind of logic to prevent term from being deleted if there are courses
-//                  associated with it. Maybe get courses associated with term and if size is
-//                  > 1 show a error message?
+
+                int relatedCourses = 0;
+                try {
+                    relatedCourses = courseViewModel.getTermCourses(deletedTerm.getId()).size();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                if(relatedCourses > 0) {
+                    Toast.makeText(TermListActivity.this, "Courses still attached. Term not deleted!", Toast.LENGTH_SHORT).show();
+                } else {
+                    termViewModel.delete(deletedTerm);
+                    Toast.makeText(TermListActivity.this, "Term deleted", Toast.LENGTH_SHORT).show();
+                }
             }
-        }).attachToRecyclerView(recyclerView);
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(termEntity -> {
             Intent intent = new Intent(TermListActivity.this, TermActivity.class);

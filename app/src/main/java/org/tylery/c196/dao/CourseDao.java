@@ -26,5 +26,8 @@ public interface CourseDao extends GenericDao {
     void delete(CourseEntity courseEntity);
 
     @Query("SELECT * FROM courses WHERE termID= :termID ORDER BY id ASC")
-    LiveData<List<CourseEntity>> getTermCourses(int termID);
+    LiveData<List<CourseEntity>> getLiveTermCourses(int termID);
+
+    @Query("SELECT * FROM courses WHERE termID= :termID ORDER BY id ASC")
+    List<CourseEntity> getTermCourses(int termID);
 }
