@@ -1,8 +1,10 @@
----
-name: Tyler Yeager
-id: #001003911
-class: Mobile Application Development – C196 
----
+# Reflection
+
+**name**: _Tyler Yeager_
+**id**: #001003911
+**class**: Mobile Application Development – C196
+
+[toc]
 
 ## Mobile Application Development
 
@@ -11,8 +13,6 @@ Operating System: Linux Mint 19.3
 minSdkVersion 26  
 targetSdkVersion 29  
 ```
-{{ name }}
-
 Utilizing Androids Room framework demonstrates a focus on database development when building a application. Interacting with the unusual requirements of a mobile device requires attention to an app lifecycle, including the possibility of being terminated by the device’s memory control, orientation changes, and a greater focus on asynchronous programming. Android has a focus on MVVO (Model View ViewModel) to address many of the issues stated above. Requiring the usage of an emulator or physical android device requires the ability to develop in one environment (desktop), for another environment (android). This resulted in design changes to address problems such as a smaller screen and expectation of a single activity per purpose.
 Difficulties during development
 I found difficulty with where to start the project. Initially, I began a top-down development, where I was building the GUI. However, this led to roadblocks almost immediately. Initially, addressing issues such as maintaining the integrity of content of each page by ensuring data was not lost in the lifecycle (e.g during orientation changes).
@@ -43,7 +43,7 @@ classDiagram
 
 Displaying live data is the most common usage, and most of the project would continue to utilize live data.
 However, validation checks (such as ensuring courses cannot be deleted with notes attached, or courses associated with a term) would utilize this.
-Calling the data this way make numerous changes up the abstraction layers.
+Calling the data this way, makes numerous changes up the abstraction layers.
 
 ```mermaid
 graph LR
@@ -51,10 +51,7 @@ A[Dao] --> B[Repository] --> C{Data Type}
 C --> |LiveData| D[Adapter]
 C --> |List| E[Validation]
 ```
-By doing this, validation checks on the data would be easier to handle, remove complexity of trying to *force* LiveData to act as Lists and improve optimization, as synchronous called would only be completed when needed.
-
-> The document describes a change in planning and order of development.  Adequate detail describing at least one aspect of the Android Studio  project that would be changed, including the changes that would be made  is not evident.
-
+By doing this, validation checks on the data would be easier to handle, remove complexity of trying to *force* `LiveData` to act as `Lists` and improve optimization, as synchronous called would only be completed when needed.
 
 ## Emulator Usage
 Emulators are a tool to rapidly develop programs by allowing the developer to load in a apk into many simulated environments, such as tablets, phones or even wearable devices such as watches.
